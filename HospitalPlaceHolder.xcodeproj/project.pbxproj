@@ -12,9 +12,10 @@
 		D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C981EED95EE0001011C /* LaunchScreen.storyboard */; };
 		D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C9A1EED95EE0001011C /* Main.storyboard */; };
 		D17C3CA11EED96470001011C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C3CA01EED96470001011C /* LoginViewController.swift */; };
-		D17C3CA41EED9B5A0001011C /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = D17C3CA31EED9B5A0001011C /* schema.json */; };
 		D17C3CA71EED9B800001011C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C3CA61EED9B800001011C /* APIManager.swift */; };
 		D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19D70F41EECED6800A1ED59 /* AppDelegate.swift */; };
+		D1BDACF51EF03B700054F2A6 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = D1BDACF41EF03B700054F2A6 /* schema.json */; };
+		D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,11 +26,12 @@
 		D17C3C991EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D17C3C9B1EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D17C3CA01EED96470001011C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D17C3CA31EED9B5A0001011C /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = SOURCE_ROOT; };
 		D17C3CA61EED9B800001011C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D19D70F11EECED6800A1ED59 /* HospitalPlaceHolder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HospitalPlaceHolder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D19D70F41EECED6800A1ED59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D19D71001EECED6800A1ED59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1BDACF41EF03B700054F2A6 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				D17C3CA01EED96470001011C /* LoginViewController.swift */,
+				D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -99,7 +102,7 @@
 		D19D70F31EECED6800A1ED59 /* HospitalPlaceHolder */ = {
 			isa = PBXGroup;
 			children = (
-				D17C3CA31EED9B5A0001011C /* schema.json */,
+				D1BDACF41EF03B700054F2A6 /* schema.json */,
 				D19D70F41EECED6800A1ED59 /* AppDelegate.swift */,
 				D17C3CA51EED9B780001011C /* APIManager */,
 				D17C3C961EED95EE0001011C /* Resources */,
@@ -125,8 +128,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D19D71031EECED6800A1ED59 /* Build configuration list for PBXNativeTarget "HospitalPlaceHolder" */;
 			buildPhases = (
-				D17C3CA21EED9A7C0001011C /* Generate Apollo GraphQL API */,
 				75345D42487C1E3F57A54C36 /* [CP] Check Pods Manifest.lock */,
+				D17C3CA21EED9A7C0001011C /* Generate Apollo GraphQL API */,
 				D19D70ED1EECED6800A1ED59 /* Sources */,
 				D19D70EE1EECED6800A1ED59 /* Frameworks */,
 				D19D70EF1EECED6800A1ED59 /* Resources */,
@@ -181,7 +184,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D17C3CA41EED9B5A0001011C /* schema.json in Resources */,
+				D1BDACF51EF03B700054F2A6 /* schema.json in Resources */,
 				D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */,
 				D17C3C9C1EED95EE0001011C /* Assets.xcassets in Resources */,
 				D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */,
@@ -260,6 +263,7 @@
 				D17C3CA71EED9B800001011C /* APIManager.swift in Sources */,
 				D17C3CA11EED96470001011C /* LoginViewController.swift in Sources */,
 				D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */,
+				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

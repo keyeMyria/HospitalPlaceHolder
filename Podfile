@@ -8,6 +8,7 @@ target 'HospitalPlaceHolder' do
   pod "RxSwift"
   pod "RxCocoa"
   pod "RxDataSources"
+  pod "NSObject+Rx"
   # Pods for HospitalPlaceHolder
 
 end
