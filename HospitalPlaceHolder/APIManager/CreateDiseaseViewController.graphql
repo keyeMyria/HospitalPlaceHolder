@@ -1,0 +1,5 @@
+mutation CreateDisease($name: String!, $lat: Float!, $long: Float!, $description: String!){
+    createDisease(name: $name, lat: $lat, long: $long, description: $description){
+        id
+    }
+}
