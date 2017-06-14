@@ -26,14 +26,10 @@ class LoginViewController: UIViewController {
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] _ in
             
-            let mapVC = self?.storyboard?.instantiateViewController(withIdentifier: "MapViewController")
-            self?.navigationController?.pushViewController(mapVC!, animated: true)
+            let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController")
+            self?.navigationController?.pushViewController(mapVC, animated: true)
             
         })
         .addDisposableTo(rx_disposeBag)
-    }
-    
-    func storyBoard() -> UIStoryboard {
-        return UIStoryboard(name: "main", bundle: nil)
     }
 }

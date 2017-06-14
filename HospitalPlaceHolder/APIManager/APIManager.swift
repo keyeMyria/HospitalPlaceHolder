@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import Apollo
 
-let graphQLKey = "https://api.graph.cool/simple/v1/cj3bpd484nnm20185dmf2tqm6s"
+let graphQLEndpoint = "https://api.graph.cool/simple/v1/cj3bpd484nnm20185dmf2tqm6"
+let apollo = ApolloClient(url: URL(string: graphQLEndpoint)!)
 
 class APIManager {
     let instance = APIManager()

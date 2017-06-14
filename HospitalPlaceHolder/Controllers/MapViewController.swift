@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
@@ -20,5 +21,16 @@ class MapViewController: UIViewController {
         
         self.title = "Search map"
         
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.title = "Add"
+        rightBarButton.rx.tap
+        .subscribe(onNext: { [weak self] _ in
+                let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
+                let navVC = UINavigationController(rootViewController: createDiseaseVC)
+                self?.present(navVC, animated: true, completion: nil)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
 }
