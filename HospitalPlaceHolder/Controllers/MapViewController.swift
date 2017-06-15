@@ -30,7 +30,26 @@ class MapViewController: UIViewController {
                 self?.present(navVC, animated: true, completion: nil)
         })
         .addDisposableTo(rx_disposeBag)
-        
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        searchBar.rx.text
+        .throttle(0.5, scheduler: MainScheduler.instance)
+        .filter{ ($0?.characters.count)! > 1 }
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] name  in
+            
+            APIManager.instance.getDiseaseBy(name: name!.lowercased())
+            .subscribe(onNext: { diseases in
+                self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+                diseases.forEach{ [weak self] in
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: $0.lat, longitude: $0.long)
+                    annotation.title = $0.name
+                    self?.mapView.addAnnotation(annotation)
+                }
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
+        })
+        .addDisposableTo(rx_disposeBag)
     }
 }

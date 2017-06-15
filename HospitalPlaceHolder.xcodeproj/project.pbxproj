@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		C9F68C1A9B5A9192FFC20066 /* Pods_HospitalPlaceHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD5BAF163826213413714D3 /* Pods_HospitalPlaceHolder.framework */; };
 		D10F292D1EF181C20037ED37 /* CreateDiseaseViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D10F292C1EF181C20037ED37 /* CreateDiseaseViewController.graphql */; };
-		D10F292F1EF1844C0037ED37 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F292E1EF1844C0037ED37 /* API.swift */; };
 		D17C3C9C1EED95EE0001011C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C971EED95EE0001011C /* Assets.xcassets */; };
 		D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C981EED95EE0001011C /* LaunchScreen.storyboard */; };
 		D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C9A1EED95EE0001011C /* Main.storyboard */; };
 		D17C3CA11EED96470001011C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C3CA01EED96470001011C /* LoginViewController.swift */; };
 		D17C3CA71EED9B800001011C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17C3CA61EED9B800001011C /* APIManager.swift */; };
+		D18894D61EF26B7800317A5C /* MapViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D18894D51EF26B7800317A5C /* MapViewController.graphql */; };
+		D18894D81EF26F6D00317A5C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18894D71EF26F6D00317A5C /* API.swift */; };
 		D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19D70F41EECED6800A1ED59 /* AppDelegate.swift */; };
 		D1BDACF51EF03B700054F2A6 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = D1BDACF41EF03B700054F2A6 /* schema.json */; };
 		D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */; };
@@ -28,12 +29,13 @@
 		A8D3BD0A3C61B01DD20F5E26 /* Pods-HospitalPlaceHolder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HospitalPlaceHolder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HospitalPlaceHolder/Pods-HospitalPlaceHolder.debug.xcconfig"; sourceTree = "<group>"; };
 		AAD5BAF163826213413714D3 /* Pods_HospitalPlaceHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HospitalPlaceHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10F292C1EF181C20037ED37 /* CreateDiseaseViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateDiseaseViewController.graphql; sourceTree = "<group>"; };
-		D10F292E1EF1844C0037ED37 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D17C3C971EED95EE0001011C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D17C3C991EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D17C3C9B1EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D17C3CA01EED96470001011C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D17C3CA61EED9B800001011C /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		D18894D51EF26B7800317A5C /* MapViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapViewController.graphql; sourceTree = "<group>"; };
+		D18894D71EF26F6D00317A5C /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = HospitalPlaceHolder/API.swift; sourceTree = SOURCE_ROOT; };
 		D19D70F11EECED6800A1ED59 /* HospitalPlaceHolder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HospitalPlaceHolder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D19D70F41EECED6800A1ED59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D19D71001EECED6800A1ED59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,10 +89,11 @@
 		D17C3CA51EED9B780001011C /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
-				D10F292E1EF1844C0037ED37 /* API.swift */,
+				D18894D71EF26F6D00317A5C /* API.swift */,
 				D17C3CA61EED9B800001011C /* APIManager.swift */,
 				D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */,
 				D10F292C1EF181C20037ED37 /* CreateDiseaseViewController.graphql */,
+				D18894D51EF26B7800317A5C /* MapViewController.graphql */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1BDACF51EF03B700054F2A6 /* schema.json in Resources */,
+				D18894D61EF26B7800317A5C /* MapViewController.graphql in Resources */,
 				D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */,
 				D17C3C9C1EED95EE0001011C /* Assets.xcassets in Resources */,
 				D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */,
@@ -291,7 +295,7 @@
 				D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */,
 				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
 				D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */,
-				D10F292F1EF1844C0037ED37 /* API.swift in Sources */,
+				D18894D81EF26F6D00317A5C /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

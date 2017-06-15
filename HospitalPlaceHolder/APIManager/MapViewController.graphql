@@ -1,0 +1,13 @@
+fragment DiseaseDetails on Disease {
+    id
+    name
+    lat
+    long
+    description
+}
+
+query DiseasesBy($name: String!){
+    allDiseases(filter: { name_contains: $name }){
+        ...DiseaseDetails
+    }
+}

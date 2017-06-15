@@ -32,19 +32,18 @@ class CreateDiseaseViewController: UIViewController{
         let rightBarButton = UIBarButtonItem()
         rightBarButton.title = "Done"
         rightBarButton.rx.tap
-        .flatMap{ [weak self] _ in
-            APIManager.instance.createD(name: (self?.diseaseNameTxtField.text)!, lat: 12.238791, long: 109.196749, description: (self?.descriptionTxtView.text)!)
-        }
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { id in
-            print(id)
-        }, onError: { error in
-            print(error)
-        }, onCompleted: { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        .subscribe(onNext: { [weak self] _ in
+            
+            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: 20.575180, long: 106.405148, description: (self?.descriptionTxtView.text)!)
+            .debug("api")
+            .subscribe(onError: { error in
+                print(error)
+            }, onCompleted: {
+                self?.dismiss(animated: true, completion: nil)
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
         })
         .addDisposableTo(rx_disposeBag)
-        
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
 }
