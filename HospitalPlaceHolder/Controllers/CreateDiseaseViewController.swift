@@ -8,11 +8,14 @@
 
 import UIKit
 import RxSwift
+import GooglePlaces
 
 class CreateDiseaseViewController: UIViewController{
     @IBOutlet weak var diseaseNameTxtField: UITextField!
     @IBOutlet weak var locationTxtField: UITextField!
     @IBOutlet weak var descriptionTxtView: UITextView!
+    
+    var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +32,17 @@ class CreateDiseaseViewController: UIViewController{
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
+        let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, descriptionTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
+            print(address ?? "address")
+            return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
+        }
+        
         let rightBarButton = UIBarButtonItem()
         rightBarButton.title = "Done"
         rightBarButton.rx.tap
         .subscribe(onNext: { [weak self] _ in
             
-            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: 20.575180, long: 106.405148, description: (self?.descriptionTxtView.text)!)
-            .debug("api")
+            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, description: (self?.descriptionTxtView.text)!)
             .subscribe(onError: { error in
                 print(error)
             }, onCompleted: {
@@ -45,5 +52,36 @@ class CreateDiseaseViewController: UIViewController{
         })
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        observerValidInput
+        .subscribeOn(MainScheduler.instance)
+        .bind(to: rightBarButton.rx.isEnabled)
+        .addDisposableTo(rx_disposeBag)
+        
+        locationTxtField.rx.controlEvent(.editingDidBegin)
+        .subscribe { [weak self] _ in
+            
+            let autocompleteController = GMSAutocompleteViewController()
+            autocompleteController.autocompleteFilter?.type = GMSPlacesAutocompleteTypeFilter.geocode
+            self?.present(autocompleteController, animated: true, completion: nil)
+            
+            autocompleteController.rx.didAutoCompleteWithPlace
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { place in
+                
+                self?.locationTxtField.rx.text.onNext(place.formattedAddress)
+                self?.chosenLocation.value = place.coordinate
+                autocompleteController.dismiss(animated: true, completion: nil)
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
+            
+            autocompleteController.rx.didCancelAutoComplete
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                autocompleteController.dismiss(animated: true, completion: nil)
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
+        }
+        .addDisposableTo(rx_disposeBag)
     }
 }

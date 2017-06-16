@@ -9,6 +9,6 @@ target 'HospitalPlaceHolder' do
   pod "RxCocoa"
   pod "RxDataSources"
   pod "NSObject+Rx"
-  # Pods for HospitalPlaceHolder
+  pod "GooglePlaces"
 
 end
