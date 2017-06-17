@@ -33,7 +33,6 @@ class CreateDiseaseViewController: UIViewController{
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, descriptionTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
-            print(address ?? "address")
             return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
         }
         
@@ -69,7 +68,9 @@ class CreateDiseaseViewController: UIViewController{
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { place in
                 
-                self?.locationTxtField.rx.text.onNext(place.formattedAddress)
+                self?.locationTxtField.text = place.formattedAddress!
+                self?.locationTxtField.sendActions(for: .valueChanged) // to notify text field's observer know about the changes
+                
                 self?.chosenLocation.value = place.coordinate
                 autocompleteController.dismiss(animated: true, completion: nil)
             })
