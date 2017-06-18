@@ -11,6 +11,7 @@ import MapKit
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import RxGesture
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
@@ -50,6 +51,13 @@ class MapViewController: UIViewController {
             })
             .addDisposableTo((self?.rx_disposeBag)!)
         })
+        .addDisposableTo(rx_disposeBag)
+        
+        mapView.rx.tapGesture().subscribe { [weak self] gesture in
+            if (self?.searchBar.isFirstResponder)! {
+                self?.searchBar.resignFirstResponder()
+            }
+        }
         .addDisposableTo(rx_disposeBag)
     }
 }

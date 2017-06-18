@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import GooglePlaces
+import RxGesture
 
 class CreateDiseaseViewController: UIViewController{
     @IBOutlet weak var diseaseNameTxtField: UITextField!
@@ -82,6 +83,15 @@ class CreateDiseaseViewController: UIViewController{
                 autocompleteController.dismiss(animated: true, completion: nil)
             })
             .addDisposableTo((self?.rx_disposeBag)!)
+        }
+        .addDisposableTo(rx_disposeBag)
+        
+        self.view.rx.tapGesture().subscribe { [weak self] gesture in
+            if (self?.diseaseNameTxtField.isFirstResponder)! {
+                self?.diseaseNameTxtField.resignFirstResponder()
+            } else if (self?.descriptionTxtView.isFirstResponder)! {
+                self?.descriptionTxtView.resignFirstResponder()
+            }
         }
         .addDisposableTo(rx_disposeBag)
     }

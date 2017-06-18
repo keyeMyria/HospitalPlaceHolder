@@ -194,7 +194,8 @@
 				TargetAttributes = {
 					D19D70F01EECED6800A1ED59 = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 8G529LE4VG;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -433,11 +434,15 @@
 			baseConfigurationReference = A8D3BD0A3C61B01DD20F5E26 /* Pods-HospitalPlaceHolder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8G529LE4VG;
 				INFOPLIST_FILE = HospitalPlaceHolder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = an.HospitalPlaceHolder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.absoluteaudiolabs.pyouraudiopro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "891c7197-8694-4c80-88e5-b4cffc3a9c1e";
+				PROVISIONING_PROFILE_SPECIFIER = AAL_PRO_development;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -446,11 +451,14 @@
 			baseConfigurationReference = 42E9C77C57D098D39AB1266C /* Pods-HospitalPlaceHolder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = HospitalPlaceHolder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = an.HospitalPlaceHolder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.absoluteaudiolabs.pyouraudiopro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
