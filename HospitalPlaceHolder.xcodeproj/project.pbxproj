@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C9F68C1A9B5A9192FFC20066 /* Pods_HospitalPlaceHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD5BAF163826213413714D3 /* Pods_HospitalPlaceHolder.framework */; };
 		D10F292D1EF181C20037ED37 /* CreateDiseaseViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D10F292C1EF181C20037ED37 /* CreateDiseaseViewController.graphql */; };
+		D114B5A91EF828EE00FB7410 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114B5A81EF828EE00FB7410 /* SignUpViewController.swift */; };
 		D17C3C9C1EED95EE0001011C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C971EED95EE0001011C /* Assets.xcassets */; };
 		D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C981EED95EE0001011C /* LaunchScreen.storyboard */; };
 		D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D17C3C9A1EED95EE0001011C /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		A8D3BD0A3C61B01DD20F5E26 /* Pods-HospitalPlaceHolder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HospitalPlaceHolder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HospitalPlaceHolder/Pods-HospitalPlaceHolder.debug.xcconfig"; sourceTree = "<group>"; };
 		AAD5BAF163826213413714D3 /* Pods_HospitalPlaceHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HospitalPlaceHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10F292C1EF181C20037ED37 /* CreateDiseaseViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateDiseaseViewController.graphql; sourceTree = "<group>"; };
+		D114B5A81EF828EE00FB7410 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D17C3C971EED95EE0001011C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D17C3C991EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D17C3C9B1EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				D17C3CA01EED96470001011C /* LoginViewController.swift */,
 				D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */,
 				D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */,
+				D114B5A81EF828EE00FB7410 /* SignUpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				D18894DB1EF3C75600317A5C /* GMSPlaceExtension.swift in Sources */,
 				D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */,
 				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
+				D114B5A91EF828EE00FB7410 /* SignUpViewController.swift in Sources */,
 				D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */,
 				D18894D81EF26F6D00317A5C /* API.swift in Sources */,
 			);

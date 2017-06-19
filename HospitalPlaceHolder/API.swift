@@ -54,6 +54,52 @@ public final class CreateDiseaseMutation: GraphQLMutation {
   }
 }
 
+public final class LoginUserByFacebookIdQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query loginUserByFacebookId($facebookId: String!) {" +
+    "  allUsers(filter: {facebookId_in: [$facebookId]}) {" +
+    "    __typename" +
+    "    ...UserDetails" +
+    "  }" +
+    "}"
+  public static let queryDocument = operationDefinition.appending(UserDetails.fragmentDefinition)
+
+  public let facebookId: String
+
+  public init(facebookId: String) {
+    self.facebookId = facebookId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["facebookId": facebookId]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let allUsers: [AllUser]
+
+    public init(reader: GraphQLResultReader) throws {
+      allUsers = try reader.list(for: Field(responseName: "allUsers", arguments: ["filter": ["facebookId_in": [reader.variables["facebookId"]]]]))
+    }
+
+    public struct AllUser: GraphQLMappable {
+      public let __typename: String
+
+      public let fragments: Fragments
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+
+        let userDetails = try UserDetails(reader: reader)
+        fragments = Fragments(userDetails: userDetails)
+      }
+
+      public struct Fragments {
+        public let userDetails: UserDetails
+      }
+    }
+  }
+}
+
 public final class LoginUserQuery: GraphQLQuery {
   public static let operationDefinition =
     "query loginUser($username: String!, $password: String!) {" +
@@ -157,7 +203,7 @@ public struct UserDetails: GraphQLNamedFragment {
     "  username" +
     "  userType" +
     "  url" +
-    "  facebooId" +
+    "  facebookId" +
     "}"
 
   public static let possibleTypes = ["User"]
@@ -168,7 +214,7 @@ public struct UserDetails: GraphQLNamedFragment {
   public let username: String
   public let userType: Int
   public let url: String?
-  public let facebooId: String
+  public let facebookId: String
 
   public init(reader: GraphQLResultReader) throws {
     __typename = try reader.value(for: Field(responseName: "__typename"))
@@ -177,7 +223,7 @@ public struct UserDetails: GraphQLNamedFragment {
     username = try reader.value(for: Field(responseName: "username"))
     userType = try reader.value(for: Field(responseName: "userType"))
     url = try reader.optionalValue(for: Field(responseName: "url"))
-    facebooId = try reader.value(for: Field(responseName: "facebooId"))
+    facebookId = try reader.value(for: Field(responseName: "facebookId"))
   }
 }
 

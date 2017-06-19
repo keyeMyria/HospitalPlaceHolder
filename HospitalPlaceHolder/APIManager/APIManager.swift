@@ -79,4 +79,26 @@ class APIManager {
             return Disposables.create()
         }
     }
+    
+    func loginUserByFacebook(facebookId: String) -> Observable<Bool> {
+        return Observable.create{ observer in
+            let loginUser = LoginUserByFacebookIdQuery(facebookId: facebookId)
+            apollo.fetch(query: loginUser) { result, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    observer.onError(error)
+                } else {
+                    if (result?.data?.allUsers.count)! > 0 {
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    } else {
+                        observer.onNext(false)
+                        observer.onCompleted()
+                    }
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
 }

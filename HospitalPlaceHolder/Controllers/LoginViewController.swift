@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,6 @@ class LoginViewController: UIViewController {
         .addDisposableTo(rx_disposeBag)
         
         loginButton.rx.tap
-        .debug()
         .subscribe(onNext: { [weak self] _ in
             
             APIManager.instance.loginUserWith(username: (self?.phoneTextField.text)!, password: (self?.passwordTextField.text)!)
@@ -45,6 +45,15 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo((self?.rx_disposeBag)!)
             
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        signUpButton.rx.tap
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            let signUpVC = Utils.storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
+            let navVC = UINavigationController(rootViewController: signUpVC)
+            self?.present(navVC, animated: true, completion: nil)
         })
         .addDisposableTo(rx_disposeBag)
     }

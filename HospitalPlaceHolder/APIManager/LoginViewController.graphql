@@ -1,3 +1,10 @@
+query loginUserByFacebookId($facebookId: String!){
+    allUsers(filter: { facebookId_in: [$facebookId] })
+    {
+        ...UserDetails
+    }
+}
+
 query loginUser($username: String!, $password: String!){
     allUsers(filter: {
         AND: [{
@@ -17,5 +24,5 @@ fragment UserDetails on User {
     username
     userType
     url
-    facebooId
+    facebookId
 }
