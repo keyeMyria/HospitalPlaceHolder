@@ -8,13 +8,21 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import GooglePlaces
 import RxGesture
 
 class CreateDiseaseViewController: UIViewController{
     @IBOutlet weak var diseaseNameTxtField: UITextField!
     @IBOutlet weak var locationTxtField: UITextField!
-    @IBOutlet weak var descriptionTxtView: UITextView!
+    @IBOutlet weak var symptomsTxtView: UITextView!
+    @IBOutlet weak var unknownNameSwitch: UISwitch!
+    @IBOutlet weak var labsValueTxtView: UITextView!
+    @IBOutlet weak var treatmentsTxtView: UITextView!
+    @IBOutlet weak var outcomeTxtView: UITextView!
+    
+    
+    @IBOutlet weak var contentView: UIView!
     
     var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
     
@@ -33,7 +41,7 @@ class CreateDiseaseViewController: UIViewController{
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, descriptionTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
+        let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, symptomsTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
             return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
         }
         
@@ -42,7 +50,7 @@ class CreateDiseaseViewController: UIViewController{
         rightBarButton.rx.tap
         .subscribe(onNext: { [weak self] _ in
             
-            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, description: (self?.descriptionTxtView.text)!)
+            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, symptoms: (self?.symptomsTxtView.text)!, address: self?.locationTxtField.text, labsValue: self?.labsValueTxtView.text, treatments: self?.treatmentsTxtView.text, outcome: self?.outcomeTxtView.text)
             .subscribe(onError: { error in
                 print(error)
             }, onCompleted: {
@@ -86,13 +94,32 @@ class CreateDiseaseViewController: UIViewController{
         }
         .addDisposableTo(rx_disposeBag)
         
-        self.view.rx.tapGesture().subscribe { [weak self] gesture in
+        contentView.rx.tapGesture().subscribe { [weak self] _ in
             if (self?.diseaseNameTxtField.isFirstResponder)! {
                 self?.diseaseNameTxtField.resignFirstResponder()
-            } else if (self?.descriptionTxtView.isFirstResponder)! {
-                self?.descriptionTxtView.resignFirstResponder()
+            } else if (self?.symptomsTxtView.isFirstResponder)! {
+                self?.symptomsTxtView.resignFirstResponder()
+            } else if (self?.labsValueTxtView.isFirstResponder)! {
+                self?.labsValueTxtView.resignFirstResponder()
+            } else if (self?.treatmentsTxtView.isFirstResponder)! {
+                self?.treatmentsTxtView.resignFirstResponder()
+            } else if (self?.outcomeTxtView.isFirstResponder)! {
+                self?.outcomeTxtView.resignFirstResponder()
             }
         }
+        .addDisposableTo(rx_disposeBag)
+        
+        unknownNameSwitch.rx.isOn
+        .map{ [weak self] isOn in
+            if isOn {
+                self?.diseaseNameTxtField.text = "Unknown"
+            } else {
+                self?.diseaseNameTxtField.text = ""
+            }
+            self?.locationTxtField.sendActions(for: .valueChanged)
+            return !isOn
+        }
+        .bind(to: diseaseNameTxtField.rx.isUserInteractionEnabled)
         .addDisposableTo(rx_disposeBag)
     }
 }

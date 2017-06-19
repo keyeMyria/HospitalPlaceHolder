@@ -11,5 +11,6 @@ target 'HospitalPlaceHolder' do
   pod "NSObject+Rx"
   pod "GooglePlaces"
   pod "RxGesture"
+  pod "IQKeyboardManagerSwift", "4.0.10"
 
 end

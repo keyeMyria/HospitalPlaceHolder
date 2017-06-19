@@ -21,13 +21,29 @@ class LoginViewController: UIViewController {
         
         self.title = "Login"
         
+        Observable.combineLatest(phoneTextField.rx.text, passwordTextField.rx.text) {
+            ($0?.characters.count)! > 0 && ($1?.characters.count)! > 0
+        }
+        .bind(to: loginButton.rx.isEnabled)
+        .addDisposableTo(rx_disposeBag)
+        
         loginButton.rx.tap
         .debug()
-        .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] _ in
             
-            let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController")
-            self?.navigationController?.pushViewController(mapVC, animated: true)
+            APIManager.instance.loginUserWith(username: (self?.phoneTextField.text)!, password: (self?.passwordTextField.text)!)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { isValid in
+                if isValid == true {
+                    let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController")
+                    self?.navigationController?.pushViewController(mapVC, animated: true)
+                } else {
+                    print("wrong pass or username")
+                }
+            }, onError: { error in
+                print(error)
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
             
         })
         .addDisposableTo(rx_disposeBag)

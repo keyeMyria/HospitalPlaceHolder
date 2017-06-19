@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
         self.title = "Search map"
         
         let rightBarButton = UIBarButtonItem()
-        rightBarButton.title = "Add"
+        rightBarButton.title = "Add new case"
         rightBarButton.rx.tap
         .subscribe(onNext: { [weak self] _ in
                 let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController

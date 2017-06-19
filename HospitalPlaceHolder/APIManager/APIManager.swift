@@ -17,9 +17,9 @@ let apollo = ApolloClient(url: URL(string: graphQLEndpoint)!)
 class APIManager {
     static var instance = APIManager()
     
-    func createDisease(name: String, lat: Double, long: Double, description: String) -> Observable<String> {
+    func createDisease(name: String, lat: Double, long: Double, symptoms: String, address: String? = nil, labsValue: String? = nil, treatments: String? = nil, outcome: String? = nil) -> Observable<String> {
         return Observable.create{ observer in
-            let createDiseaseMutation = CreateDiseaseMutation(name: name, lat: lat, long: long, description: description)
+            let createDiseaseMutation = CreateDiseaseMutation(name: name, lat: lat, long: long, symptoms: symptoms, address: address, labsValue: labsValue, treatments: treatments, outcome: outcome)
             apollo.perform(mutation: createDiseaseMutation) { result, error in
             
                 if let error = error {
@@ -54,6 +54,28 @@ class APIManager {
                 }
             }
                 
+            return Disposables.create()
+        }
+    }
+    
+    func loginUserWith(username: String, password: String) -> Observable<Bool> {
+        return Observable.create{ observer in
+            let loginUser = LoginUserQuery(username: username, password: password)
+            apollo.fetch(query: loginUser) { result, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    observer.onError(error)
+                } else {
+                    if (result?.data?.allUsers.count)! > 0 {
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    } else {
+                        observer.onNext(false)
+                        observer.onCompleted()
+                    }
+                }
+            }
+            
             return Disposables.create()
         }
     }

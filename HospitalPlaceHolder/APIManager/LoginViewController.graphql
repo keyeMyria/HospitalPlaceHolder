@@ -1,0 +1,21 @@
+query loginUser($username: String!, $password: String!){
+    allUsers(filter: {
+        AND: [{
+            username_in: [$username]
+            }, {
+            password_in: [$password]
+        }]
+        })
+    {
+        ...UserDetails
+    }
+}
+
+fragment UserDetails on User {
+    id
+    name
+    username
+    userType
+    url
+    facebooId
+}

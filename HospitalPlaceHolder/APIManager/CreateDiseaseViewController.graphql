@@ -1,5 +1,5 @@
-mutation CreateDisease($name: String!, $lat: Float!, $long: Float!, $description: String!){
-    createDisease(name: $name, lat: $lat, long: $long, description: $description){
+mutation CreateDisease($name: String!, $lat: Float!, $long: Float!, $symptoms: String!, $address: String, $labsValue: String, $treatments: String, $outcome: String){
+    createDisease(name: $name, lat: $lat, long: $long, symptoms: $symptoms, address: $address, labsValue: $labsValue, treatments: $treatments, outcome: $outcome){
         id
     }
 }

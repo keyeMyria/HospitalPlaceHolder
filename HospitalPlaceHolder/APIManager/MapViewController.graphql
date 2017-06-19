@@ -3,7 +3,7 @@ fragment DiseaseDetails on Disease {
     name
     lat
     long
-    description
+    symptoms
 }
 
 query DiseasesBy($name: String!){
