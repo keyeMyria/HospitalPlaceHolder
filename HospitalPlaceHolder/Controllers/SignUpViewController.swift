@@ -17,6 +17,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var codeTxtField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     
+    var validUsernameSubject = BehaviorSubject<Bool>(value: false)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,7 @@ class SignUpViewController: UIViewController {
         .skip(1)
         .filter{ [weak self] text in
             if (text?.characters.count)! <= 2 {
+                self?.validUsernameSubject.onNext(false)
                 self?.usernameTxtField.backgroundColor = UIColor.white
             }
             return (text?.characters.count)! > 2
@@ -46,12 +49,26 @@ class SignUpViewController: UIViewController {
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] existing in
                 if existing {
+                    self?.validUsernameSubject.onNext(false)
                     self?.usernameTxtField.backgroundColor = UIColor.red
                 } else {
+                    self?.validUsernameSubject.onNext(true)
                     self?.usernameTxtField.backgroundColor = UIColor.white
                 }
             })
             .addDisposableTo((self?.rx_disposeBag)!)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        Observable.combineLatest(validUsernameSubject, passwordTxtField.rx.text, confirmPasswordTxtField.rx.text) {
+            $0 && ($1?.characters.count)! > 0 && $1 == $2
+        }
+        .bind(to: submitButton.rx.isEnabled)
+        .addDisposableTo(rx_disposeBag)
+        
+        submitButton.rx.tap
+        .subscribe(onNext: { _ in
+//            APIManager.instance.
         })
         .addDisposableTo(rx_disposeBag)
     }
