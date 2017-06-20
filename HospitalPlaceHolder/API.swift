@@ -194,6 +194,102 @@ public final class DiseasesByQuery: GraphQLQuery {
   }
 }
 
+public final class UserByQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query UserBy($username: String!) {" +
+    "  allUsers(filter: {username_in: [$username]}) {" +
+    "    __typename" +
+    "    ...UserDetails" +
+    "  }" +
+    "}"
+  public static let queryDocument = operationDefinition.appending(UserDetails.fragmentDefinition)
+
+  public let username: String
+
+  public init(username: String) {
+    self.username = username
+  }
+
+  public var variables: GraphQLMap? {
+    return ["username": username]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let allUsers: [AllUser]
+
+    public init(reader: GraphQLResultReader) throws {
+      allUsers = try reader.list(for: Field(responseName: "allUsers", arguments: ["filter": ["username_in": [reader.variables["username"]]]]))
+    }
+
+    public struct AllUser: GraphQLMappable {
+      public let __typename: String
+
+      public let fragments: Fragments
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+
+        let userDetails = try UserDetails(reader: reader)
+        fragments = Fragments(userDetails: userDetails)
+      }
+
+      public struct Fragments {
+        public let userDetails: UserDetails
+      }
+    }
+  }
+}
+
+public final class RegisterUserMutation: GraphQLMutation {
+  public static let operationDefinition =
+    "mutation RegisterUser($username: String!, $password: String!, $userType: Int!) {" +
+    "  createUser(username: $username, name: $username, password: $password, facebookId: \"000\", userType: $userType, url: \"\") {" +
+    "    __typename" +
+    "    ...UserDetails" +
+    "  }" +
+    "}"
+  public static let queryDocument = operationDefinition.appending(UserDetails.fragmentDefinition)
+
+  public let username: String
+  public let password: String
+  public let userType: Int
+
+  public init(username: String, password: String, userType: Int) {
+    self.username = username
+    self.password = password
+    self.userType = userType
+  }
+
+  public var variables: GraphQLMap? {
+    return ["username": username, "password": password, "userType": userType]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let createUser: CreateUser?
+
+    public init(reader: GraphQLResultReader) throws {
+      createUser = try reader.optionalValue(for: Field(responseName: "createUser", arguments: ["username": reader.variables["username"], "name": reader.variables["username"], "password": reader.variables["password"], "facebookId": "000", "userType": reader.variables["userType"], "url": ""]))
+    }
+
+    public struct CreateUser: GraphQLMappable {
+      public let __typename: String
+
+      public let fragments: Fragments
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+
+        let userDetails = try UserDetails(reader: reader)
+        fragments = Fragments(userDetails: userDetails)
+      }
+
+      public struct Fragments {
+        public let userDetails: UserDetails
+      }
+    }
+  }
+}
+
 public struct UserDetails: GraphQLNamedFragment {
   public static let fragmentDefinition =
     "fragment UserDetails on User {" +

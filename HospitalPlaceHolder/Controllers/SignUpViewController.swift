@@ -32,5 +32,27 @@ class SignUpViewController: UIViewController {
         })
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        usernameTxtField.rx.text
+        .skip(1)
+        .filter{ [weak self] text in
+            if (text?.characters.count)! <= 2 {
+                self?.usernameTxtField.backgroundColor = UIColor.white
+            }
+            return (text?.characters.count)! > 2
+        }
+        .subscribe(onNext: { [weak self] text in
+            APIManager.instance.isExistingUserWith(username: text)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] existing in
+                if existing {
+                    self?.usernameTxtField.backgroundColor = UIColor.red
+                } else {
+                    self?.usernameTxtField.backgroundColor = UIColor.white
+                }
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
+        })
+        .addDisposableTo(rx_disposeBag)
     }
 }

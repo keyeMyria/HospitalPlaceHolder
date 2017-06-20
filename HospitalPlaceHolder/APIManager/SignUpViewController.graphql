@@ -1,0 +1,11 @@
+query UserBy($username: String!){
+    allUsers(filter: { username_in: [$username] }){
+        ...UserDetails
+    }
+}
+
+mutation RegisterUser($username: String!, $password: String!, $userType: Int!){
+    createUser(username: $username, name: $username, password: $password, facebookId: "000", userType: $userType, url: ""){
+        ...UserDetails
+    }
+}

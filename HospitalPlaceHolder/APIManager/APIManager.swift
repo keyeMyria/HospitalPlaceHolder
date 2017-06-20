@@ -90,12 +90,34 @@ class APIManager {
                 } else {
                     if (result?.data?.allUsers.count)! > 0 {
                         observer.onNext(true)
-                        observer.onCompleted()
                     } else {
                         observer.onNext(false)
-                        observer.onCompleted()
                     }
+                    observer.onCompleted()
                 }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func isExistingUserWith(username: String!) -> Observable<Bool> {
+        return Observable.create{ observer in
+            let queryUser = UserByQuery(username: username)
+            apollo.fetch(query: queryUser) { result, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    observer.onNext(false)
+                } else {
+                    if (result?.data?.allUsers.count)! > 0 {
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
+                    
+                }
+                
+                observer.onCompleted()
             }
             
             return Disposables.create()
