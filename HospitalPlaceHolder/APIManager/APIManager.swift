@@ -121,20 +121,21 @@ class APIManager {
         }
     }
     
-//    func regiserUser(username: String, password: String, userType: Int) -> Observable<UserDetails> {
-//        return Observable.create{ observer in
-//            let registerUser = RegisterUserMutation(username: username, password: password, userType: userType)
-//            apollo.fetch(query: registerUser) { result, error in
-//                if let error = error {
-//                    observer.onError(error)
-//                } else {
-//                    if let user = result?.data?.createUser?.fragments.userDetails {
-//                        observer.onNext(user)
-//                    }
-//                    observer.onCompleted()
-//                }
-//            }
-//            return Disposables.create()
-//        }
-//    }
+    func registerUser(username: String, password: String, userType: Int) -> Observable<UserDetails> {
+        return Observable.create{ observer in
+            let createUser = RegisterUserMutation(username: username, password: password, userType: userType)
+            apollo.perform(mutation: createUser, resultHandler: { result, error in
+                if let error = error {
+                    observer.onError(error)
+                } else {
+                    if let user = result?.data?.createUser?.fragments.userDetails {
+                        observer.onNext(user)
+                    }
+                    observer.onCompleted()
+                }
+            })
+            
+            return Disposables.create()
+        }
+    }
 }

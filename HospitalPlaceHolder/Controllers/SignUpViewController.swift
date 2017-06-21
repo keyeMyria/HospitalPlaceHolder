@@ -67,8 +67,16 @@ class SignUpViewController: UIViewController {
         .addDisposableTo(rx_disposeBag)
         
         submitButton.rx.tap
-        .subscribe(onNext: { _ in
-//            APIManager.instance.
+        .subscribe(onNext: { [weak self] _ in
+            let userType = (self?.codeTxtField.text)! == "12345" ? 1 : 2
+            APIManager.instance.registerUser(username: (self?.usernameTxtField.text)!, password: (self?.passwordTxtField.text)!, userType: userType)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { user in
+                
+            }, onError: { error in
+                print(error)
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
         })
         .addDisposableTo(rx_disposeBag)
     }
