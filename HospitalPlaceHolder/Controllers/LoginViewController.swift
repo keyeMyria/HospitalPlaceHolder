@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,14 @@ class LoginViewController: UIViewController {
             
             APIManager.instance.loginUserWith(username: (self?.phoneTextField.text)!, password: (self?.passwordTextField.text)!)
             .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { isValid in
-                if isValid == true {
+            .subscribe(onNext: { user in
+                if let user = user {
+                    let currUser = User(with: user)
+                    currUser.saveCurrentUser()
+                    
                     let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController")
-                    self?.navigationController?.pushViewController(mapVC, animated: true)
+                    let navVC = UINavigationController(rootViewController: mapVC)
+                    AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
                 } else {
                     print("wrong pass or username")
                 }

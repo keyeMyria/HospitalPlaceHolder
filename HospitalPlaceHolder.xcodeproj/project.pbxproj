@@ -25,6 +25,8 @@
 		D1CDA8351EF1212600F3BC6D /* CreateDiseaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */; };
 		D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CDA8371EF121AD00F3BC6D /* Utils.swift */; };
 		D1CDA83A1EF12FF400F3BC6D /* LoginViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */; };
+		D1E60A731EFBC18D000B5ACD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E60A721EFBC18D000B5ACD /* User.swift */; };
+		D1E60A891EFBE574000B5ACD /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E60A881EFBE574000B5ACD /* FacebookManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDiseaseViewController.swift; sourceTree = "<group>"; };
 		D1CDA8371EF121AD00F3BC6D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginViewController.graphql; sourceTree = "<group>"; };
+		D1E60A721EFBC18D000B5ACD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D1E60A881EFBE574000B5ACD /* FacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 		D17C3CA51EED9B780001011C /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
+				D1E60A881EFBE574000B5ACD /* FacebookManager.swift */,
 				D17C3CA61EED9B800001011C /* APIManager.swift */,
 				D18894D71EF26F6D00317A5C /* API.swift */,
 				D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */,
@@ -138,6 +143,7 @@
 				D1BDACF41EF03B700054F2A6 /* schema.json */,
 				D19D70F41EECED6800A1ED59 /* AppDelegate.swift */,
 				D17C3CA51EED9B780001011C /* APIManager */,
+				D1E60A711EFBC179000B5ACD /* Model */,
 				D18894D91EF3C6A400317A5C /* Extensions */,
 				D1CDA8361EF121A100F3BC6D /* Utils */,
 				D17C3C961EED95EE0001011C /* Resources */,
@@ -153,6 +159,14 @@
 				D1CDA8371EF121AD00F3BC6D /* Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		D1E60A711EFBC179000B5ACD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1E60A721EFBC18D000B5ACD /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D4008BC70E7111874B2EB8DC /* Pods */ = {
@@ -308,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1E60A891EFBE574000B5ACD /* FacebookManager.swift in Sources */,
 				D1CDA8351EF1212600F3BC6D /* CreateDiseaseViewController.swift in Sources */,
 				D17C3CA71EED9B800001011C /* APIManager.swift in Sources */,
 				D17C3CA11EED96470001011C /* LoginViewController.swift in Sources */,
@@ -316,6 +331,7 @@
 				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
 				D114B5A91EF828EE00FB7410 /* SignUpViewController.swift in Sources */,
 				D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */,
+				D1E60A731EFBC18D000B5ACD /* User.swift in Sources */,
 				D18894D81EF26F6D00317A5C /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -72,6 +72,12 @@ class SignUpViewController: UIViewController {
             APIManager.instance.registerUser(username: (self?.usernameTxtField.text)!, password: (self?.passwordTxtField.text)!, userType: userType)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { user in
+                let user = User(with: user)
+                user.saveCurrentUser()
+                
+                let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+                let navVC = UINavigationController(rootViewController: mapVC)
+                AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
                 
             }, onError: { error in
                 print(error)

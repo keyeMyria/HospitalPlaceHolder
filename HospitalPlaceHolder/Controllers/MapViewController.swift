@@ -22,16 +22,18 @@ class MapViewController: UIViewController {
         
         self.title = "Search map"
         
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.title = "Add new case"
-        rightBarButton.rx.tap
-        .subscribe(onNext: { [weak self] _ in
-                let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
-                let navVC = UINavigationController(rootViewController: createDiseaseVC)
-                self?.present(navVC, animated: true, completion: nil)
-        })
-        .addDisposableTo(rx_disposeBag)
-        self.navigationItem.rightBarButtonItem = rightBarButton
+        if User.currentUser()?.userType == 1 {
+            let rightBarButton = UIBarButtonItem()
+            rightBarButton.title = "Add new case"
+            rightBarButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
+                    let navVC = UINavigationController(rootViewController: createDiseaseVC)
+                    self?.present(navVC, animated: true, completion: nil)
+                })
+                .addDisposableTo(rx_disposeBag)
+            self.navigationItem.rightBarButtonItem = rightBarButton
+        }
         
         searchBar.rx.text
         .throttle(0.5, scheduler: MainScheduler.instance)

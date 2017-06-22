@@ -58,7 +58,7 @@ class APIManager {
         }
     }
     
-    func loginUserWith(username: String, password: String) -> Observable<Bool> {
+    func loginUserWith(username: String, password: String) -> Observable<UserDetails?> {
         return Observable.create{ observer in
             let loginUser = LoginUserQuery(username: username, password: password)
             apollo.fetch(query: loginUser) { result, error in
@@ -66,11 +66,11 @@ class APIManager {
                     print(error.localizedDescription)
                     observer.onError(error)
                 } else {
-                    if (result?.data?.allUsers.count)! > 0 {
-                        observer.onNext(true)
+                    if let user = result?.data?.allUsers[0].fragments.userDetails {
+                        observer.onNext(user)
                         observer.onCompleted()
                     } else {
-                        observer.onNext(false)
+                        observer.onNext(nil)
                         observer.onCompleted()
                     }
                 }

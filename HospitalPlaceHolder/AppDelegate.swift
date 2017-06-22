@@ -14,13 +14,34 @@ import IQKeyboardManagerSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static var instance = AppDelegate()
+    
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         GMSPlacesClient.provideAPIKey("AIzaSyAnoQYio9VhQAIZrV8BajQRPoEfwalC6qI")
         IQKeyboardManager.sharedManager().enable = true
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        if User.currentUser() != nil {
+            let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+            let navVC = UINavigationController(rootViewController: mapVC)
+            changeRootViewControllerWith(vc: navVC)
+        } else {
+            let loginVC = Utils.storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            let navVC = UINavigationController(rootViewController: loginVC)
+            changeRootViewControllerWith(vc: navVC)
+        }
+    
         return true
+    }
+    
+    func changeRootViewControllerWith(vc :UIViewController) {
+        if window == nil {
+            window = UIApplication.shared.keyWindow
+        }
+        window?.rootViewController = vc
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

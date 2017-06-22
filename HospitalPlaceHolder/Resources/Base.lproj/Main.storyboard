@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8SJ-rn-95Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -84,10 +84,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q1K-9e-VYI"/>
                     <connections>
+                        <outlet property="facebookButton" destination="17U-an-n7k" id="2X7-wX-YDX"/>
                         <outlet property="loginButton" destination="QZ2-Kd-nLh" id="w3l-M8-W40"/>
                         <outlet property="passwordTextField" destination="VFC-Wp-0In" id="xbI-Gl-wT9"/>
                         <outlet property="phoneTextField" destination="7jr-4D-dBX" id="KJk-mr-tN1"/>
-                        <outlet property="signUpButton" destination="7XD-um-MmY" id="PKd-fR-6AL"/>
+                        <outlet property="signUpButton" destination="17U-an-n7k" id="Bxb-g2-eIY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -418,24 +419,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJm-Ms-iiP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2586" y="303"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="fhW-wY-KUX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8SJ-rn-95Q" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fOr-YV-DeM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Nw0-RS-ATc"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NUt-1K-3wQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2" y="123"/>
         </scene>
     </scenes>
 </document>
