@@ -21,7 +21,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Login"
+        self.title = "login".localized()
+        phoneTextField.placeholder = "username".localized()
+        passwordTextField.placeholder = "pass".localized()
         
         Observable.combineLatest(phoneTextField.rx.text, passwordTextField.rx.text) {
             ($0?.characters.count)! > 0 && ($1?.characters.count)! > 0
@@ -29,12 +31,16 @@ class LoginViewController: UIViewController {
         .bind(to: loginButton.rx.isEnabled)
         .addDisposableTo(rx_disposeBag)
         
+        loginButton.setTitle("login".localized(), for: .normal)
+        
         loginButton.rx.tap
         .subscribe(onNext: { [weak self] _ in
             
+            Utils.showHUDIn(vc: self!)
             APIManager.instance.loginUserWith(username: (self?.phoneTextField.text)!, password: (self?.passwordTextField.text)!)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { user in
+                Utils.hideHUDIn(vc: self!)
                 if let user = user {
                     let currUser = User(with: user)
                     currUser.saveCurrentUser()
@@ -43,15 +49,18 @@ class LoginViewController: UIViewController {
                     let navVC = UINavigationController(rootViewController: mapVC)
                     AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
                 } else {
-                    print("wrong pass or username")
+                    _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: "wrong_pass_username".localized(), cancelButton: "ok".localized())
                 }
-            }, onError: { error in
-                print(error)
+            }, onError: {[weak self] error in
+                Utils.hideHUDIn(vc: self!)
+                _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
             })
             .addDisposableTo((self?.rx_disposeBag)!)
             
         })
         .addDisposableTo(rx_disposeBag)
+        
+        signUpButton.setTitle("sign_up".localized(), for: .normal)
         
         signUpButton.rx.tap
         .subscribeOn(MainScheduler.instance)
@@ -59,6 +68,23 @@ class LoginViewController: UIViewController {
             let signUpVC = Utils.storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
             let navVC = UINavigationController(rootViewController: signUpVC)
             self?.present(navVC, animated: true, completion: nil)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        facebookButton.setTitle("login_facebook".localized(), for: .normal)
+        
+        facebookButton.rx.tap
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            FacebookManager.instance.loginByFacebookIn(vc: self!)
+            .subscribe(onNext: { userId in
+                if let userId = userId {
+                    print(userId)
+                }
+            }, onError: { error in
+                _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
+            })
+            .addDisposableTo((self?.rx_disposeBag)!)
         })
         .addDisposableTo(rx_disposeBag)
     }

@@ -1,0 +1,51 @@
+
+/* Class = "UIButton"; normalTitle = "Login by Facebook"; ObjectID = "17U-an-n7k"; */
+"17U-an-n7k.normalTitle" = "Login by Facebook";
+
+/* Class = "UILabel"; text = "Labs Value:"; ObjectID = "2Zf-eS-anN"; */
+"2Zf-eS-anN.text" = "Labs Value:";
+
+/* Class = "UILabel"; text = "Treatments:"; ObjectID = "6SD-sn-IRD"; */
+"6SD-sn-IRD.text" = "Treatments:";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "7XD-um-MmY"; */
+"7XD-um-MmY.normalTitle" = "Sign Up";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "7jr-4D-dBX"; */
+"7jr-4D-dBX.placeholder" = "Username";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "Eoe-CM-t3g"; */
+"Eoe-CM-t3g.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Disease Name:"; ObjectID = "HMK-qf-Bic"; */
+"HMK-qf-Bic.text" = "Disease Name:";
+
+/* Class = "UILabel"; text = "Unknown Name:"; ObjectID = "Kjl-Hr-JMj"; */
+"Kjl-Hr-JMj.text" = "Unknown Name:";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "Kma-7I-AiA"; */
+"Kma-7I-AiA.placeholder" = "Code";
+
+/* Class = "UILabel"; text = "Outcome:"; ObjectID = "PNI-zd-hK8"; */
+"PNI-zd-hK8.text" = "Outcome:";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "QZ2-Kd-nLh"; */
+"QZ2-Kd-nLh.normalTitle" = "Login";
+
+/* Class = "UITextField"; placeholder = "Confirm Password"; ObjectID = "Um3-eR-Qm5"; */
+"Um3-eR-Qm5.placeholder" = "Confirm Password";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "VFC-Wp-0In"; */
+"VFC-Wp-0In.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Location:"; ObjectID = "Y1l-m9-1zZ"; */
+"Y1l-m9-1zZ.text" = "Location:";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "kJz-ba-ocp"; */
+"kJz-ba-ocp.placeholder" = "Username";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "rZU-Fg-j8T"; */
+"rZU-Fg-j8T.normalTitle" = "Submit";
+
+/* Class = "UILabel"; text = "Symptoms:"; ObjectID = "sLk-2i-WNR"; */
+"sLk-2i-WNR.text" = "Symptoms:";

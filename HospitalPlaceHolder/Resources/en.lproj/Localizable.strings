@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  HospitalPlaceHolder
+
+  Created by Dinh Thanh An on 6/24/17.
+  Copyright © 2017 Dinh Thanh An. All rights reserved.
+*/
+
+"new_case" = "Add new case";
+"search_map" = "Search map";
+"login" = "Login";
+"error" = "Error";
+"wrong_pass_username" = "Wrong password or username";
+"ok" = "OK";
+"cancel" = "Cancel";
+"new" = "New";
+"back" = "Back";
+"done" = "Done";
+"unknown" = "Unknown";
+"sign_up" = "Sign Up";
+"login_facebook" = "Login By Facebook";
+"username" = "Username";
+"disease_name" = "Disease Name";
+"unknown_name" = "Unknown Name";
+"location" = "Location";
+"symptoms" = "Symptoms";
+"labs" = "Labs Value";
+"treatments" = "Treatments";
+"outcome" = "Outcome";
+"conf_pass" = "Confirm Password";
+"code" = "Code";
+"submit" = "Submit";

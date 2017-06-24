@@ -66,8 +66,8 @@ class APIManager {
                     print(error.localizedDescription)
                     observer.onError(error)
                 } else {
-                    if let user = result?.data?.allUsers[0].fragments.userDetails {
-                        observer.onNext(user)
+                    if (result?.data?.allUsers.count)! > 0 {
+                        observer.onNext(result?.data?.allUsers[0].fragments.userDetails)
                         observer.onCompleted()
                     } else {
                         observer.onNext(nil)

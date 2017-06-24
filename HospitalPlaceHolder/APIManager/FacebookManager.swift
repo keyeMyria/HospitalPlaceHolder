@@ -12,6 +12,8 @@ import RxSwift
 
 class FacebookManager {
     
+    static var instance = FacebookManager()
+    
     func loginByFacebookIn(vc: UIViewController) -> Observable<String?> {
         
         return Observable.create { observer in

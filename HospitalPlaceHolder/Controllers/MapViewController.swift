@@ -20,11 +20,11 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Search map"
+        self.title = "search_map".localized()
         
         if User.currentUser()?.userType == 1 {
             let rightBarButton = UIBarButtonItem()
-            rightBarButton.title = "Add new case"
+            rightBarButton.title = "new_case".localized()
             rightBarButton.rx.tap
                 .subscribe(onNext: { [weak self] _ in
                     let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController

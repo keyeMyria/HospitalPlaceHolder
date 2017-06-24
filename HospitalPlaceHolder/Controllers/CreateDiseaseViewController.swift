@@ -29,10 +29,10 @@ class CreateDiseaseViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "New"
+        self.title = "new".localized()
         
         let leftBarButton = UIBarButtonItem()
-        leftBarButton.title = "Back"
+        leftBarButton.title = "back".localized()
         leftBarButton.rx.tap
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] _ in
@@ -46,7 +46,7 @@ class CreateDiseaseViewController: UIViewController{
         }
         
         let rightBarButton = UIBarButtonItem()
-        rightBarButton.title = "Done"
+        rightBarButton.title = "done".localized()
         rightBarButton.rx.tap
         .subscribe(onNext: { [weak self] _ in
             
@@ -112,7 +112,7 @@ class CreateDiseaseViewController: UIViewController{
         unknownNameSwitch.rx.isOn
         .map{ [weak self] isOn in
             if isOn {
-                self?.diseaseNameTxtField.text = "Unknown"
+                self?.diseaseNameTxtField.text = "unknown".localized()
             } else {
                 self?.diseaseNameTxtField.text = ""
             }

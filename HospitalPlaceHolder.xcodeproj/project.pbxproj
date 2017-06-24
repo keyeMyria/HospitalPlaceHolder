@@ -18,6 +18,8 @@
 		D18894D61EF26B7800317A5C /* MapViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D18894D51EF26B7800317A5C /* MapViewController.graphql */; };
 		D18894D81EF26F6D00317A5C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18894D71EF26F6D00317A5C /* API.swift */; };
 		D18894DB1EF3C75600317A5C /* GMSPlaceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18894DA1EF3C75600317A5C /* GMSPlaceExtension.swift */; };
+		D19C74AE1EFEB78E0046928F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C74AD1EFEB78E0046928F /* StringExtension.swift */; };
+		D19C74B31EFEB9C30046928F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D19C74B51EFEB9C30046928F /* Localizable.strings */; };
 		D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19D70F41EECED6800A1ED59 /* AppDelegate.swift */; };
 		D1A6C2111EF93D5A00A5BEF3 /* SignUpViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D1A6C2101EF93D5A00A5BEF3 /* SignUpViewController.graphql */; };
 		D1BDACF51EF03B700054F2A6 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = D1BDACF41EF03B700054F2A6 /* schema.json */; };
@@ -43,6 +45,10 @@
 		D18894D51EF26B7800317A5C /* MapViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapViewController.graphql; sourceTree = "<group>"; };
 		D18894D71EF26F6D00317A5C /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = HospitalPlaceHolder/API.swift; sourceTree = SOURCE_ROOT; };
 		D18894DA1EF3C75600317A5C /* GMSPlaceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMSPlaceExtension.swift; sourceTree = "<group>"; };
+		D19C74AD1EFEB78E0046928F /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		D19C74AF1EFEB8FD0046928F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D19C74B41EFEB9C30046928F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D19C74B81EFEBB720046928F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D19D70F11EECED6800A1ED59 /* HospitalPlaceHolder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HospitalPlaceHolder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D19D70F41EECED6800A1ED59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D19D71001EECED6800A1ED59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +88,7 @@
 				D17C3C971EED95EE0001011C /* Assets.xcassets */,
 				D17C3C981EED95EE0001011C /* LaunchScreen.storyboard */,
 				D17C3C9A1EED95EE0001011C /* Main.storyboard */,
+				D19C74B51EFEB9C30046928F /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -115,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				D18894DA1EF3C75600317A5C /* GMSPlaceExtension.swift */,
+				D19C74AD1EFEB78E0046928F /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -246,6 +254,7 @@
 				D18894D61EF26B7800317A5C /* MapViewController.graphql in Resources */,
 				D17C3C9E1EED95EE0001011C /* Main.storyboard in Resources */,
 				D17C3C9C1EED95EE0001011C /* Assets.xcassets in Resources */,
+				D19C74B31EFEB9C30046928F /* Localizable.strings in Resources */,
 				D17C3C9D1EED95EE0001011C /* LaunchScreen.storyboard in Resources */,
 				D1CDA83A1EF12FF400F3BC6D /* LoginViewController.graphql in Resources */,
 				D1A6C2111EF93D5A00A5BEF3 /* SignUpViewController.graphql in Resources */,
@@ -330,6 +339,7 @@
 				D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */,
 				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
 				D114B5A91EF828EE00FB7410 /* SignUpViewController.swift in Sources */,
+				D19C74AE1EFEB78E0046928F /* StringExtension.swift in Sources */,
 				D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */,
 				D1E60A731EFBC18D000B5ACD /* User.swift in Sources */,
 				D18894D81EF26F6D00317A5C /* API.swift in Sources */,
@@ -343,6 +353,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D17C3C991EED95EE0001011C /* Base */,
+				D19C74AF1EFEB8FD0046928F /* vi */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -355,6 +366,15 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		D19C74B51EFEB9C30046928F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D19C74B41EFEB9C30046928F /* vi */,
+				D19C74B81EFEBB720046928F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -362,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -413,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  HospitalPlaceHolder
+
+  Created by Dinh Thanh An on 6/24/17.
+  Copyright © 2017 Dinh Thanh An. All rights reserved.
+*/
+
+"new_case" = "Thêm bệnh";
+"search_map" = "Tìm bệnh";
+"login" = "Đăng nhập";
+"error" = "Lỗi";
+"wrong_pass_username" = "Sai tên đăng nhập hoặc mật khẩu";
+"ok" = "Chấp nhận";
+"cancel" = "Huỷ";
+"new" = "Thêm";
+"back" = "Trở về";
+"done" = "Hoàn tất";
+"unknown" = "Không biết";
+"sign_up" = "Đăng ký";
+"login_facebook" = "Đăng nhập bằng Facebook";
+"username" = "Tên đăng nhập";
+"disease_name" = "Tên bệnh";
+"unknown_name" = "Không biết tên";
+"location" = "Vị trí";
+"symptoms" = "Triệu chứng";
+"labs" = "Kết quả xét nghiệm";
+"treatments" = "Điều trị";
+"outcome" = "Kết quả điều trị";
+"conf_pass" = "Xác nhận mật khẩu";
+"code" = "Mã";
+"submit" = "Gửi";

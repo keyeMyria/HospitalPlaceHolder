@@ -14,5 +14,6 @@ target 'HospitalPlaceHolder' do
   pod "IQKeyboardManagerSwift", "4.0.10"
   pod 'FacebookCore'
   pod 'FacebookLogin'
+  pod 'MBProgressHUD', '~> 1.0.0'
 
 end

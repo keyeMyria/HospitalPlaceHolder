@@ -23,10 +23,15 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Sign Up"
+        self.title = "sign_up".localized()
+        usernameTxtField.placeholder = "username".localized()
+        passwordTxtField.placeholder = "pass".localized()
+        confirmPasswordTxtField.placeholder = "conf_pass".localized()
+        codeTxtField.placeholder = "code".localized()
+        submitButton.setTitle("submit".localized(), for: .normal)
         
         let leftBarButton = UIBarButtonItem()
-        leftBarButton.title = "Back"
+        leftBarButton.title = "back".localized()
         leftBarButton.rx.tap
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] _ in
