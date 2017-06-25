@@ -31,9 +31,7 @@ class MapViewController: UIViewController {
             rightBarButton.title = "new_case".localized()
             rightBarButton.rx.tap
                 .subscribe(onNext: { [weak self] _ in
-                    let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
-                    let navVC = UINavigationController(rootViewController: createDiseaseVC)
-                    self?.present(navVC, animated: true, completion: nil)
+                    self?.showDiseaseDetailScreenWith()
                 })
                 .addDisposableTo(rx_disposeBag)
             self.navigationItem.rightBarButtonItem = rightBarButton
@@ -75,6 +73,14 @@ class MapViewController: UIViewController {
         })
         .addDisposableTo(rx_disposeBag)
         
+        mapView.rx.didSelectAnnotation
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] annotationView in
+//            annotationView.annotation
+//            self?.showDiseaseDetailScreenWith(disease: nil)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
         mapView.rx.tapGesture().subscribe { [weak self] gesture in
             if (self?.searchBar.isFirstResponder)! {
                 self?.searchBar.resignFirstResponder()
@@ -106,6 +112,12 @@ class MapViewController: UIViewController {
                 self.menuVC.view.frame.origin = CGPoint(x: self.menuVCWidth * -1, y: self.menuVC.view.frame.origin.y)
             }
         })
-
+    }
+    
+    func showDiseaseDetailScreenWith(disease: DiseaseDetails? = nil) {
+        let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
+        createDiseaseVC.disease = disease
+        let navVC = UINavigationController(rootViewController: createDiseaseVC)
+        self.present(navVC, animated: true, completion: nil)
     }
 }

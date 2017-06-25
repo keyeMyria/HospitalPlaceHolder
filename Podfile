@@ -15,5 +15,6 @@ target 'HospitalPlaceHolder' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'MBProgressHUD', '~> 1.0.0'
+  pod 'SDWebImage', '~>3.8'
 
 end

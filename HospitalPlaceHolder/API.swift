@@ -332,6 +332,10 @@ public struct DiseaseDetails: GraphQLNamedFragment {
     "  lat" +
     "  long" +
     "  symptoms" +
+    "  address" +
+    "  labsValue" +
+    "  outcome" +
+    "  treatments" +
     "}"
 
   public static let possibleTypes = ["Disease"]
@@ -342,6 +346,10 @@ public struct DiseaseDetails: GraphQLNamedFragment {
   public let lat: Double
   public let long: Double
   public let symptoms: String
+  public let address: String?
+  public let labsValue: String?
+  public let outcome: String?
+  public let treatments: String?
 
   public init(reader: GraphQLResultReader) throws {
     __typename = try reader.value(for: Field(responseName: "__typename"))
@@ -350,5 +358,9 @@ public struct DiseaseDetails: GraphQLNamedFragment {
     lat = try reader.value(for: Field(responseName: "lat"))
     long = try reader.value(for: Field(responseName: "long"))
     symptoms = try reader.value(for: Field(responseName: "symptoms"))
+    address = try reader.optionalValue(for: Field(responseName: "address"))
+    labsValue = try reader.optionalValue(for: Field(responseName: "labsValue"))
+    outcome = try reader.optionalValue(for: Field(responseName: "outcome"))
+    treatments = try reader.optionalValue(for: Field(responseName: "treatments"))
   }
 }

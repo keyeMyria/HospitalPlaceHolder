@@ -31,7 +31,7 @@ class CreateDiseaseViewController: UIViewController{
     
     @IBOutlet weak var contentView: UIView!
     
-    
+    var disease: DiseaseDetails? = nil
     var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
     
     override func viewDidLoad() {
@@ -39,13 +39,7 @@ class CreateDiseaseViewController: UIViewController{
         
         self.title = "new".localized()
         
-        diseaseNameLabel.text = "disease_name".localized() + ":"
-        unknownNameLabel.text = "unknown_name".localized() + ":"
-        locationLabel.text = "location".localized() + ":"
-        symptomsLabel.text = "symptoms".localized() + ":"
-        treatmentsLabel.text = "treatments".localized() + ":"
-        outComeLabel.text = "outcome".localized() + ":"
-        labsValueLabel.text = "labs".localized() + ":"
+        localizedStringForUI()
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.title = "back".localized()
@@ -57,58 +51,79 @@ class CreateDiseaseViewController: UIViewController{
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, symptomsTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
-            return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
+        if disease == nil {
+            let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, symptomsTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
+                return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
+            }
+            
+            let rightBarButton = UIBarButtonItem()
+            rightBarButton.title = "done".localized()
+            rightBarButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    
+                    APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, symptoms: (self?.symptomsTxtView.text)!, address: self?.locationTxtField.text, labsValue: self?.labsValueTxtView.text, treatments: self?.treatmentsTxtView.text, outcome: self?.outcomeTxtView.text)
+                        .subscribe(onError: { error in
+                            print(error)
+                        }, onCompleted: {
+                            self?.dismiss(animated: true, completion: nil)
+                        })
+                        .addDisposableTo((self?.rx_disposeBag)!)
+                })
+                .addDisposableTo(rx_disposeBag)
+            self.navigationItem.rightBarButtonItem = rightBarButton
+            
+            observerValidInput
+                .subscribeOn(MainScheduler.instance)
+                .bind(to: rightBarButton.rx.isEnabled)
+                .addDisposableTo(rx_disposeBag)
+            
+            locationTxtField.rx.controlEvent(.editingDidBegin)
+                .subscribe { [weak self] _ in
+                    
+                    let autocompleteController = GMSAutocompleteViewController()
+                    autocompleteController.autocompleteFilter?.type = GMSPlacesAutocompleteTypeFilter.geocode
+                    self?.present(autocompleteController, animated: true, completion: nil)
+                    
+                    autocompleteController.rx.didAutoCompleteWithPlace
+                        .subscribeOn(MainScheduler.instance)
+                        .subscribe(onNext: { place in
+                            
+                            self?.locationTxtField.text = place.formattedAddress!
+                            self?.locationTxtField.sendActions(for: .valueChanged) // to notify text field's observer know about the changes
+                            
+                            self?.chosenLocation.value = place.coordinate
+                            autocompleteController.dismiss(animated: true, completion: nil)
+                        })
+                        .addDisposableTo((self?.rx_disposeBag)!)
+                    
+                    autocompleteController.rx.didCancelAutoComplete
+                        .subscribeOn(MainScheduler.instance)
+                        .subscribe(onNext: { _ in
+                            autocompleteController.dismiss(animated: true, completion: nil)
+                        })
+                        .addDisposableTo((self?.rx_disposeBag)!)
+                }
+                .addDisposableTo(rx_disposeBag)
+            
+            unknownNameSwitch.rx.isOn
+                .map{ [weak self] isOn in
+                    if isOn {
+                        self?.diseaseNameTxtField.text = "unknown".localized()
+                    } else {
+                        self?.diseaseNameTxtField.text = ""
+                    }
+                    self?.locationTxtField.sendActions(for: .valueChanged)
+                    return !isOn
+                }
+                .bind(to: diseaseNameTxtField.rx.isUserInteractionEnabled)
+                .addDisposableTo(rx_disposeBag)
+        } else {
+            diseaseNameTxtField.text = disease?.name
+            locationTxtField.text = disease?.address
+            symptomsTxtView.text = disease?.symptoms
+            labsValueTxtView.text = disease?.labsValue
+            treatmentsTxtView.text = disease?.treatments
         }
-        
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.title = "done".localized()
-        rightBarButton.rx.tap
-        .subscribe(onNext: { [weak self] _ in
-            
-            APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, symptoms: (self?.symptomsTxtView.text)!, address: self?.locationTxtField.text, labsValue: self?.labsValueTxtView.text, treatments: self?.treatmentsTxtView.text, outcome: self?.outcomeTxtView.text)
-            .subscribe(onError: { error in
-                print(error)
-            }, onCompleted: {
-                self?.dismiss(animated: true, completion: nil)
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-        })
-        .addDisposableTo(rx_disposeBag)
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        observerValidInput
-        .subscribeOn(MainScheduler.instance)
-        .bind(to: rightBarButton.rx.isEnabled)
-        .addDisposableTo(rx_disposeBag)
-        
-        locationTxtField.rx.controlEvent(.editingDidBegin)
-        .subscribe { [weak self] _ in
-            
-            let autocompleteController = GMSAutocompleteViewController()
-            autocompleteController.autocompleteFilter?.type = GMSPlacesAutocompleteTypeFilter.geocode
-            self?.present(autocompleteController, animated: true, completion: nil)
-            
-            autocompleteController.rx.didAutoCompleteWithPlace
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { place in
-                
-                self?.locationTxtField.text = place.formattedAddress!
-                self?.locationTxtField.sendActions(for: .valueChanged) // to notify text field's observer know about the changes
-                
-                self?.chosenLocation.value = place.coordinate
-                autocompleteController.dismiss(animated: true, completion: nil)
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-            
-            autocompleteController.rx.didCancelAutoComplete
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { _ in
-                autocompleteController.dismiss(animated: true, completion: nil)
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-        }
-        .addDisposableTo(rx_disposeBag)
         
         contentView.rx.tapGesture().subscribe { [weak self] _ in
             if (self?.diseaseNameTxtField.isFirstResponder)! {
@@ -125,17 +140,15 @@ class CreateDiseaseViewController: UIViewController{
         }
         .addDisposableTo(rx_disposeBag)
         
-        unknownNameSwitch.rx.isOn
-        .map{ [weak self] isOn in
-            if isOn {
-                self?.diseaseNameTxtField.text = "unknown".localized()
-            } else {
-                self?.diseaseNameTxtField.text = ""
-            }
-            self?.locationTxtField.sendActions(for: .valueChanged)
-            return !isOn
-        }
-        .bind(to: diseaseNameTxtField.rx.isUserInteractionEnabled)
-        .addDisposableTo(rx_disposeBag)
+    }
+    
+    func localizedStringForUI() {
+        diseaseNameLabel.text = "disease_name".localized() + ":"
+        unknownNameLabel.text = "unknown_name".localized() + ":"
+        locationLabel.text = "location".localized() + ":"
+        symptomsLabel.text = "symptoms".localized() + ":"
+        treatmentsLabel.text = "treatments".localized() + ":"
+        outComeLabel.text = "outcome".localized() + ":"
+        labsValueLabel.text = "labs".localized() + ":"
     }
 }
