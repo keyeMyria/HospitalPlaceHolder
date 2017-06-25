@@ -15,6 +15,7 @@ extension String{
         
         if deviceLanguage == nil {
             deviceLanguage = "vi"
+            ud.set(deviceLanguage, forKey: "app_language")
         }
         
         let path = Bundle.main.path(forResource: deviceLanguage as? String, ofType: "lproj")

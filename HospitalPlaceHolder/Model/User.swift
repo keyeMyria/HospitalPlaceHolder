@@ -43,6 +43,10 @@ class User: NSObject, NSCoding {
         aCoder.encode(facebookId, forKey: "facebookId")
     }
     
+    func deleteUser() {
+        UserDefaults.standard.removeObject(forKey: "KEY_CURRENT_USER")
+    }
+    
     func saveCurrentUser() {
         let encodedUserObject = NSKeyedArchiver.archivedData(withRootObject: self)
         UserDefaults.standard.set(encodedUserObject, forKey: "KEY_CURRENT_USER")

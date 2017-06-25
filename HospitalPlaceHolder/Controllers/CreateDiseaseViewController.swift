@@ -21,8 +21,16 @@ class CreateDiseaseViewController: UIViewController{
     @IBOutlet weak var treatmentsTxtView: UITextView!
     @IBOutlet weak var outcomeTxtView: UITextView!
     
+    @IBOutlet weak var diseaseNameLabel: UILabel!
+    @IBOutlet weak var unknownNameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var symptomsLabel: UILabel!
+    @IBOutlet weak var treatmentsLabel: UILabel!
+    @IBOutlet weak var outComeLabel: UILabel!
+    @IBOutlet weak var labsValueLabel: UILabel!
     
     @IBOutlet weak var contentView: UIView!
+    
     
     var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
     
@@ -30,6 +38,14 @@ class CreateDiseaseViewController: UIViewController{
         super.viewDidLoad()
         
         self.title = "new".localized()
+        
+        diseaseNameLabel.text = "disease_name".localized() + ":"
+        unknownNameLabel.text = "unknown_name".localized() + ":"
+        locationLabel.text = "location".localized() + ":"
+        symptomsLabel.text = "symptoms".localized() + ":"
+        treatmentsLabel.text = "treatments".localized() + ":"
+        outComeLabel.text = "outcome".localized() + ":"
+        labsValueLabel.text = "labs".localized() + ":"
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.title = "back".localized()

@@ -17,25 +17,23 @@ class Utils {
     
     class func alertViewIn(vc: UIViewController, title: String?, message: String, cancelButton: String, otherButton: [String]? = nil) -> Observable<Int>{
         
-//        let buttonClickHandler = ((Int) -> Void).self
+        let buttonClickedSubject = PublishSubject<Int>()
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: cancelButton, style: UIAlertActionStyle.default, handler: { _ in
-            
+            buttonClickedSubject.onNext(0)
         }))
         if otherButton != nil {
             for i in 1...(otherButton?.count)! {
-                alert.addAction(UIAlertAction(title: otherButton?[i], style: UIAlertActionStyle.default, handler: { _ in
-                    
+                alert.addAction(UIAlertAction(title: otherButton?[i-1], style: UIAlertActionStyle.default, handler: { _ in
+                    buttonClickedSubject.onNext(i)
                 }))
             }
         }
+        
         vc.present(alert, animated: true, completion: nil)
         
-        return Observable.create{ observable in
-            
-            return Disposables.create()
-        }
+        return buttonClickedSubject.asObserver()
     }
     
     class func showHUDIn(vc: UIViewController){

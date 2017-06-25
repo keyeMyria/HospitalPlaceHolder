@@ -17,6 +17,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var isMenuOpenVariable = Variable<Bool>(false)
+    var menuVCWidth: CGFloat = 0;
+    let menuVC = Utils.storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +37,23 @@ class MapViewController: UIViewController {
                 })
                 .addDisposableTo(rx_disposeBag)
             self.navigationItem.rightBarButtonItem = rightBarButton
+            
+            isMenuOpenVariable.asObservable()
+            .map{!$0}
+            .bind(to: rightBarButton.rx.isEnabled)
+            .addDisposableTo(rx_disposeBag)
         }
+        
+        let leftBarButton = UIBarButtonItem()
+        leftBarButton.title = "Menu".localized()
+        leftBarButton.rx.tap
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            self?.isMenuOpenVariable.value = !(self?.isMenuOpenVariable.value)!
+            self?.showHideMenu()
+        })
+        .addDisposableTo(rx_disposeBag)
+        self.navigationItem.leftBarButtonItem = leftBarButton
         
         searchBar.rx.text
         .throttle(0.5, scheduler: MainScheduler.instance)
@@ -59,7 +79,33 @@ class MapViewController: UIViewController {
             if (self?.searchBar.isFirstResponder)! {
                 self?.searchBar.resignFirstResponder()
             }
+            if (self?.isMenuOpenVariable.value)! {
+                self?.isMenuOpenVariable.value = !(self?.isMenuOpenVariable.value)!
+                self?.showHideMenu()
+            }
         }
         .addDisposableTo(rx_disposeBag)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        menuVCWidth = self.view.frame.size.width - 50
+        
+        self.navigationController?.addChildViewController(menuVC)
+        menuVC.view.frame = CGRect(x:  menuVCWidth * -1, y: 0, width: menuVCWidth, height: self.view.frame.size.height)
+        self.navigationController?.view.addSubview(menuVC.view)
+        menuVC.didMove(toParentViewController: self.navigationController)
+    }
+    
+    func showHideMenu() {
+        UIView.animate(withDuration: 0.5, animations: {
+            if self.menuVC.view.frame.origin.x < 0 {
+                self.menuVC.view.frame.origin = CGPoint(x: 0, y: self.menuVC.view.frame.origin.y)
+            } else {
+                self.menuVC.view.frame.origin = CGPoint(x: self.menuVCWidth * -1, y: self.menuVC.view.frame.origin.y)
+            }
+        })
+
     }
 }

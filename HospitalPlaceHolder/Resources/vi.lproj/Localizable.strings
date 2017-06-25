@@ -16,10 +16,11 @@
 "new" = "Thêm";
 "back" = "Trở về";
 "done" = "Hoàn tất";
-"unknown" = "Không biết";
+"unknown" = "Không có tên";
 "sign_up" = "Đăng ký";
 "login_facebook" = "Đăng nhập bằng Facebook";
 "username" = "Tên đăng nhập";
+"pass" = "Mật khẩu";
 "disease_name" = "Tên bệnh";
 "unknown_name" = "Không biết tên";
 "location" = "Vị trí";
@@ -30,3 +31,11 @@
 "conf_pass" = "Xác nhận mật khẩu";
 "code" = "Mã";
 "submit" = "Gửi";
+"logout_up" = "Đăng xuất!";
+"want_logout" = "Bạn có muốn đăng xuất?";
+"languages" = "Chọn ngôn ngữ";
+"logout" = "Đăng xuất";
+"vi" = "Tiếng Việt";
+"en" = "English";
+"choose_language" = "Hãy chọn ngôn ngữ!";
+"choose_language_up" = "Chọn ngôn ngữ";

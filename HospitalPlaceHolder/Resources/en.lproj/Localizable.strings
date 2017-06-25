@@ -20,6 +20,7 @@
 "sign_up" = "Sign Up";
 "login_facebook" = "Login By Facebook";
 "username" = "Username";
+"pass" = "Password";
 "disease_name" = "Disease Name";
 "unknown_name" = "Unknown Name";
 "location" = "Location";
@@ -30,3 +31,11 @@
 "conf_pass" = "Confirm Password";
 "code" = "Code";
 "submit" = "Submit";
+"logout_up" = "Logout!";
+"want_logout" = "Are you sure want to logout?";
+"languages" = "Languages";
+"logout" = "Logout";
+"vi" = "Tiếng Việt";
+"en" = "English";
+"choose_language" = "Please choose your language!";
+"choose_language_up" = "Choose language";
