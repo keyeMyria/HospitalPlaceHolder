@@ -63,9 +63,7 @@ class MapViewController: UIViewController {
             .subscribe(onNext: { diseases in
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
                 diseases.forEach{ [weak self] in
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: $0.lat, longitude: $0.long)
-                    annotation.title = $0.name
+                    let annotation = DiseasePointAnnotation(disease: $0)
                     self?.mapView.addAnnotation(annotation)
                 }
             })
@@ -76,8 +74,8 @@ class MapViewController: UIViewController {
         mapView.rx.didSelectAnnotation
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] annotationView in
-//            annotationView.annotation
-//            self?.showDiseaseDetailScreenWith(disease: nil)
+            let annotation = annotationView.annotation as! DiseasePointAnnotation
+            self?.showDiseaseDetailScreenWith(disease: annotation.disease)
         })
         .addDisposableTo(rx_disposeBag)
         

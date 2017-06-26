@@ -6,19 +6,17 @@
 //  Copyright © 2017 Dinh Thanh An. All rights reserved.
 //
 
+import UIKit
 import MapKit
 
-//open class DiseasePointAnnotation:NSObjectProtocol , MKAnnotation{
-//    open var coordinate: CLLocationCoordinate2D
-//    open var title: String?
-//    open var subtitle: String?
-//    
-//    var disease: DiseaseDetails
-//    
-//    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?) {
-//        self.coordinate = coordinate
-//        self.title = title
-//        self.subtitle = subtitle
-//    }
-//    
-//}
+class DiseasePointAnnotation: MKPointAnnotation{
+    
+    var disease: DiseaseDetails
+    
+    init(disease: DiseaseDetails) {
+        self.disease = disease
+        super.init()
+        self.title = disease.name
+        self.coordinate = CLLocationCoordinate2D(latitude: disease.lat, longitude: disease.long)
+    }
+}
