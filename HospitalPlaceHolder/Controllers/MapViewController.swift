@@ -55,19 +55,21 @@ class MapViewController: UIViewController {
         
         searchBar.rx.text
         .throttle(0.5, scheduler: MainScheduler.instance)
-        .filter{ ($0?.characters.count)! > 1 }
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] name  in
-            
-            APIManager.instance.getDiseaseBy(name: name!.lowercased())
-            .subscribe(onNext: { diseases in
+            if name?.characters.count == 0 {
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                diseases.forEach{ [weak self] in
-                    let annotation = DiseasePointAnnotation(disease: $0)
-                    self?.mapView.addAnnotation(annotation)
-                }
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
+            } else {
+                APIManager.instance.getDiseaseBy(name: name!.lowercased())
+                    .subscribe(onNext: { diseases in
+                        self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+                        diseases.forEach{ [weak self] in
+                            let annotation = DiseasePointAnnotation(disease: $0)
+                            self?.mapView.addAnnotation(annotation)
+                        }
+                    })
+                    .addDisposableTo((self?.rx_disposeBag)!)
+            }            
         })
         .addDisposableTo(rx_disposeBag)
         
