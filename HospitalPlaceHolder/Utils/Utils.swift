@@ -11,6 +11,10 @@ import RxSwift
 import MBProgressHUD
 
 class Utils {
+    class var updateAppLanguage: String {
+        return "update_app_language"
+    }
+    
     class var storyboard: UIStoryboard {
         return UIStoryboard(name: "Main", bundle: nil)
     }
@@ -47,6 +51,8 @@ class Utils {
     class func setLanguage(lang: String){
         let ud = UserDefaults.standard
         ud.set(lang, forKey: "app_language")
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Utils.updateAppLanguage), object: nil)
     }
     
 }

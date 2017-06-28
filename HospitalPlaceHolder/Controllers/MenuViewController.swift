@@ -27,12 +27,11 @@ class MenuViewController: UIViewController {
         usernameLabel.text = (currUser?.username)! + " - " + (currUser?.name)!
         userTypeLabel.text = currUser?.userType == 1 ? "Healthcare provider" : ""
         
+        setTextForUI()
+        
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
         profileImageView.sd_setImage(with: URL(string: (currUser?.url)!), placeholderImage: UIImage(named: "ic_account_circle"))
-        
-        languageLabel.text = "languages".localized()
-        logoutLabel.text = "logout".localized()
         
         logoutButon.rx.tap
         .subscribe(onNext:{ [weak self] _ in
@@ -67,6 +66,18 @@ class MenuViewController: UIViewController {
             }
         }
         .addDisposableTo(rx_disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name(rawValue: Utils.updateAppLanguage))
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            self?.setTextForUI()
+        })
+        .addDisposableTo(rx_disposeBag)
+    }
+    
+    func setTextForUI() {
+        languageLabel.text = "languages".localized()
+        logoutLabel.text = "logout".localized()
     }
     
     

@@ -21,14 +21,15 @@ class MapViewController: UIViewController {
     var menuVCWidth: CGFloat = 0;
     let menuVC = Utils.storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
     
+    let rightBarButton = UIBarButtonItem()
+    let leftBarButton = UIBarButtonItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "search_map".localized()
+        setTextForUI()
         
         if User.currentUser()?.userType == 1 {
-            let rightBarButton = UIBarButtonItem()
-            rightBarButton.title = "new_case".localized()
             rightBarButton.rx.tap
                 .subscribe(onNext: { [weak self] _ in
                     self?.showDiseaseDetailScreenWith()
@@ -42,8 +43,6 @@ class MapViewController: UIViewController {
             .addDisposableTo(rx_disposeBag)
         }
         
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.title = "Menu".localized()
         leftBarButton.rx.tap
         .subscribeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] _ in
@@ -91,17 +90,32 @@ class MapViewController: UIViewController {
             }
         }
         .addDisposableTo(rx_disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name(rawValue: Utils.updateAppLanguage))
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            self?.setTextForUI()
+        })
+        .addDisposableTo(rx_disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        menuVCWidth = self.view.frame.size.width - 50
-        
-        self.navigationController?.addChildViewController(menuVC)
-        menuVC.view.frame = CGRect(x:  menuVCWidth * -1, y: 0, width: menuVCWidth, height: self.view.frame.size.height)
-        self.navigationController?.view.addSubview(menuVC.view)
-        menuVC.didMove(toParentViewController: self.navigationController)
+        if menuVCWidth == 0 {
+            menuVCWidth = self.view.frame.size.width - 50
+            
+            self.navigationController?.addChildViewController(menuVC)
+            menuVC.view.frame = CGRect(x:  menuVCWidth * -1, y: 0, width: menuVCWidth, height: self.view.frame.size.height)
+            self.navigationController?.view.addSubview(menuVC.view)
+            menuVC.didMove(toParentViewController: self.navigationController)
+        }
+    }
+    
+    func setTextForUI() {
+        self.title = "search_map".localized()
+        rightBarButton.title = "new_case".localized()
+        leftBarButton.title = "Menu".localized()
     }
     
     func showHideMenu() {
