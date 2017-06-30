@@ -13,9 +13,11 @@ import RxCocoa
 import NSObject_Rx
 import RxGesture
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, BindableType  {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    var viewModel: MapViewModel!
     
     var isMenuOpenVariable = Variable<Bool>(false)
     var menuVCWidth: CGFloat = 0;
@@ -110,6 +112,10 @@ class MapViewController: UIViewController {
             self.navigationController?.view.addSubview(menuVC.view)
             menuVC.didMove(toParentViewController: self.navigationController)
         }
+    }
+    
+    func bindViewModel() {
+        
     }
     
     func setTextForUI() {

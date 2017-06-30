@@ -30,6 +30,17 @@
 		D1CDA8351EF1212600F3BC6D /* CreateDiseaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */; };
 		D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CDA8371EF121AD00F3BC6D /* Utils.swift */; };
 		D1CDA83A1EF12FF400F3BC6D /* LoginViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */; };
+		D1E3F4C81F065EFA00E40554 /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4C31F065EFA00E40554 /* Scene+ViewController.swift */; };
+		D1E3F4C91F065EFA00E40554 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4C41F065EFA00E40554 /* Scene.swift */; };
+		D1E3F4CA1F065EFA00E40554 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4C51F065EFA00E40554 /* SceneCoordinator.swift */; };
+		D1E3F4CB1F065EFA00E40554 /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4C61F065EFA00E40554 /* SceneCoordinatorType.swift */; };
+		D1E3F4CC1F065EFA00E40554 /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4C71F065EFA00E40554 /* SceneTransitionType.swift */; };
+		D1E3F4CE1F06652200E40554 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4CD1F06652200E40554 /* LoginViewModel.swift */; };
+		D1E3F4D01F06653C00E40554 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4CF1F06653C00E40554 /* MapViewModel.swift */; };
+		D1E3F4D21F06655A00E40554 /* CreateDiseaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4D11F06655A00E40554 /* CreateDiseaseViewModel.swift */; };
+		D1E3F4D41F06657200E40554 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4D31F06657200E40554 /* SignUpViewModel.swift */; };
+		D1E3F4D61F06658300E40554 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4D51F06658300E40554 /* MenuViewModel.swift */; };
+		D1E3F4D81F0666AC00E40554 /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E3F4D71F0666AC00E40554 /* BindableType.swift */; };
 		D1E60A731EFBC18D000B5ACD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E60A721EFBC18D000B5ACD /* User.swift */; };
 		D1E60A891EFBE574000B5ACD /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E60A881EFBE574000B5ACD /* FacebookManager.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +75,17 @@
 		D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDiseaseViewController.swift; sourceTree = "<group>"; };
 		D1CDA8371EF121AD00F3BC6D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D1CDA8391EF12FF400F3BC6D /* LoginViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginViewController.graphql; sourceTree = "<group>"; };
+		D1E3F4C31F065EFA00E40554 /* Scene+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
+		D1E3F4C41F065EFA00E40554 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		D1E3F4C51F065EFA00E40554 /* SceneCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		D1E3F4C61F065EFA00E40554 /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
+		D1E3F4C71F065EFA00E40554 /* SceneTransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
+		D1E3F4CD1F06652200E40554 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D1E3F4CF1F06653C00E40554 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		D1E3F4D11F06655A00E40554 /* CreateDiseaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDiseaseViewModel.swift; sourceTree = "<group>"; };
+		D1E3F4D31F06657200E40554 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		D1E3F4D51F06658300E40554 /* MenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		D1E3F4D71F0666AC00E40554 /* BindableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
 		D1E60A721EFBC18D000B5ACD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D1E60A881EFBE574000B5ACD /* FacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,10 +133,15 @@
 			isa = PBXGroup;
 			children = (
 				D17C3CA01EED96470001011C /* LoginViewController.swift */,
+				D1E3F4CD1F06652200E40554 /* LoginViewModel.swift */,
 				D1BDACF61EF03C7C0054F2A6 /* MapViewController.swift */,
+				D1E3F4CF1F06653C00E40554 /* MapViewModel.swift */,
 				D1CDA8341EF1212600F3BC6D /* CreateDiseaseViewController.swift */,
+				D1E3F4D11F06655A00E40554 /* CreateDiseaseViewModel.swift */,
 				D114B5A81EF828EE00FB7410 /* SignUpViewController.swift */,
+				D1E3F4D31F06657200E40554 /* SignUpViewModel.swift */,
 				D135E83F1EFF677E00370517 /* MenuViewController.swift */,
+				D1E3F4D51F06658300E40554 /* MenuViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -166,6 +193,7 @@
 			children = (
 				D1BDACF41EF03B700054F2A6 /* schema.json */,
 				D19D70F41EECED6800A1ED59 /* AppDelegate.swift */,
+				D1E3F4C21F065EFA00E40554 /* Scenes */,
 				D17C3CA51EED9B780001011C /* APIManager */,
 				D1E60A711EFBC179000B5ACD /* Model */,
 				D18894D91EF3C6A400317A5C /* Extensions */,
@@ -186,9 +214,22 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		D1E3F4C21F065EFA00E40554 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D1E3F4C31F065EFA00E40554 /* Scene+ViewController.swift */,
+				D1E3F4C41F065EFA00E40554 /* Scene.swift */,
+				D1E3F4C51F065EFA00E40554 /* SceneCoordinator.swift */,
+				D1E3F4C61F065EFA00E40554 /* SceneCoordinatorType.swift */,
+				D1E3F4C71F065EFA00E40554 /* SceneTransitionType.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		D1E60A711EFBC179000B5ACD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1E3F4D71F0666AC00E40554 /* BindableType.swift */,
 				D1E60A721EFBC18D000B5ACD /* User.swift */,
 			);
 			path = Model;
@@ -348,21 +389,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1E3F4CB1F065EFA00E40554 /* SceneCoordinatorType.swift in Sources */,
 				D1E60A891EFBE574000B5ACD /* FacebookManager.swift in Sources */,
 				D1CDA8351EF1212600F3BC6D /* CreateDiseaseViewController.swift in Sources */,
+				D1E3F4D61F06658300E40554 /* MenuViewModel.swift in Sources */,
+				D1E3F4CC1F065EFA00E40554 /* SceneTransitionType.swift in Sources */,
 				D17C3CA71EED9B800001011C /* APIManager.swift in Sources */,
 				D17C3CA11EED96470001011C /* LoginViewController.swift in Sources */,
 				D18894DB1EF3C75600317A5C /* GMSPlaceExtension.swift in Sources */,
 				D19D70F51EECED6800A1ED59 /* AppDelegate.swift in Sources */,
+				D1E3F4D21F06655A00E40554 /* CreateDiseaseViewModel.swift in Sources */,
 				D1BDACF71EF03C7C0054F2A6 /* MapViewController.swift in Sources */,
+				D1E3F4D41F06657200E40554 /* SignUpViewModel.swift in Sources */,
 				D135E8401EFF677E00370517 /* MenuViewController.swift in Sources */,
 				D114B5A91EF828EE00FB7410 /* SignUpViewController.swift in Sources */,
+				D1E3F4CA1F065EFA00E40554 /* SceneCoordinator.swift in Sources */,
 				D13439B31EFFF8830019DF81 /* MapViewExtension.swift in Sources */,
+				D1E3F4C91F065EFA00E40554 /* Scene.swift in Sources */,
 				D13439B81F000B240019DF81 /* DiseasePointAnnotation.swift in Sources */,
+				D1E3F4D81F0666AC00E40554 /* BindableType.swift in Sources */,
 				D19C74AE1EFEB78E0046928F /* StringExtension.swift in Sources */,
 				D1CDA8381EF121AD00F3BC6D /* Utils.swift in Sources */,
+				D1E3F4D01F06653C00E40554 /* MapViewModel.swift in Sources */,
+				D1E3F4C81F065EFA00E40554 /* Scene+ViewController.swift in Sources */,
 				D1E60A731EFBC18D000B5ACD /* User.swift in Sources */,
 				D18894D81EF26F6D00317A5C /* API.swift in Sources */,
+				D1E3F4CE1F06652200E40554 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

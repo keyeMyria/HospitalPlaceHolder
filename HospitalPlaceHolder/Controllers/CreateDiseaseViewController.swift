@@ -12,7 +12,7 @@ import RxCocoa
 import GooglePlaces
 import RxGesture
 
-class CreateDiseaseViewController: UIViewController{
+class CreateDiseaseViewController: UIViewController, BindableType {
     @IBOutlet weak var diseaseNameTxtField: UITextField!
     @IBOutlet weak var locationTxtField: UITextField!
     @IBOutlet weak var symptomsTxtView: UITextView!
@@ -30,6 +30,8 @@ class CreateDiseaseViewController: UIViewController{
     @IBOutlet weak var labsValueLabel: UILabel!
     
     @IBOutlet weak var contentView: UIView!
+    
+    var viewModel: CreateDiseaseViewModel!
     
     var disease: DiseaseDetails? = nil
     var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
@@ -139,6 +141,10 @@ class CreateDiseaseViewController: UIViewController{
             }
         }
         .addDisposableTo(rx_disposeBag)
+        
+    }
+    
+    func bindViewModel() {
         
     }
     

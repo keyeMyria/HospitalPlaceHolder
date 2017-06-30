@@ -24,19 +24,38 @@ import UIKit
 
 extension Scene {
   func viewController() -> UIViewController {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    switch self {
-    case .tasks(let viewModel):
-      let nc = storyboard.instantiateViewController(withIdentifier: "Tasks") as! UINavigationController
-      var vc = nc.viewControllers.first as! TasksViewController
-      vc.bindViewModel(to: viewModel)
-      return nc
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        switch self {
+        case .login(let viewModel):
+          let nc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! UINavigationController
+          var vc = nc.viewControllers.first as! LoginViewController
+          vc.bindViewModel(to: viewModel)
+          return nc
 
-    case .editTask(let viewModel):
-      let nc = storyboard.instantiateViewController(withIdentifier: "EditTask") as! UINavigationController
-      var vc = nc.viewControllers.first as! EditTaskViewController
-      vc.bindViewModel(to: viewModel)
-      return nc
+        case .searchMap(let viewModel):
+          let nc = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! UINavigationController
+          var vc = nc.viewControllers.first as! MapViewController
+          vc.bindViewModel(to: viewModel)
+          return nc
+        
+        case .createDisease(let viewModel):
+            let nc = storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! UINavigationController
+            var vc = nc.viewControllers.first as! CreateDiseaseViewController
+            vc.bindViewModel(to: viewModel)
+            return nc
+        
+        case .menu(let viewModel):
+            let nc = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! UINavigationController
+            var vc = nc.viewControllers.first as! MenuViewController
+            vc.bindViewModel(to: viewModel)
+            return nc
+
+        case .signUp(let viewModel):
+            let nc = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! UINavigationController
+            var vc = nc.viewControllers.first as! SignUpViewController
+            vc.bindViewModel(to: viewModel)
+            return nc
+            
+        }
     }
-  }
 }

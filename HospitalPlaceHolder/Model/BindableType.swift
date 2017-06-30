@@ -20,12 +20,21 @@
  * THE SOFTWARE.
  */
 
-import Foundation
+import UIKit
+import RxSwift
 
-enum Scene {
-  case login(LoginViewModel)
-  case searchMap(MapViewModel)
-  case createDisease(CreateDiseaseViewModel)
-  case menu(MenuViewModel)
-  case signUp(SignUpViewModel)
+protocol BindableType {
+  associatedtype ViewModelType
+
+  var viewModel: ViewModelType! { get set }
+
+  func bindViewModel()
+}
+
+extension BindableType where Self: UIViewController {
+  mutating func bindViewModel(to model: Self.ViewModelType) {
+    viewModel = model
+    loadViewIfNeeded()
+    bindViewModel()
+  }
 }

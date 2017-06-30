@@ -11,12 +11,14 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, BindableType {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
+    
+    var viewModel: LoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,5 +89,9 @@ class LoginViewController: UIViewController {
             .addDisposableTo((self?.rx_disposeBag)!)
         })
         .addDisposableTo(rx_disposeBag)
+    }
+    
+    func bindViewModel() {
+        
     }
 }

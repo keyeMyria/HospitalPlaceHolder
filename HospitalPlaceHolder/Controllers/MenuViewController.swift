@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import SDWebImage
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, BindableType  {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userTypeLabel: UILabel!
@@ -19,6 +19,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var languageButton: UIButton!
     @IBOutlet weak var logoutLabel: UILabel!
     @IBOutlet weak var logoutButon: UIButton!
+    
+    var viewModel: MenuViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +75,10 @@ class MenuViewController: UIViewController {
             self?.setTextForUI()
         })
         .addDisposableTo(rx_disposeBag)
+    }
+    
+    func bindViewModel() {
+        
     }
     
     func setTextForUI() {

@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, BindableType  {
     @IBOutlet weak var usernameTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var confirmPasswordTxtField: UITextField!
@@ -18,7 +18,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     var validUsernameSubject = BehaviorSubject<Bool>(value: false)
-    
+    var viewModel: SignUpViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,5 +90,9 @@ class SignUpViewController: UIViewController {
             .addDisposableTo((self?.rx_disposeBag)!)
         })
         .addDisposableTo(rx_disposeBag)
+    }
+    
+    func bindViewModel() {
+        
     }
 }
