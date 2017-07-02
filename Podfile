@@ -11,6 +11,7 @@ target 'HospitalPlaceHolder' do
   pod "NSObject+Rx"
   pod "GooglePlaces"
   pod "RxGesture"
+  pod 'Action'
   pod "IQKeyboardManagerSwift", "4.0.10"
   pod 'FacebookCore'
   pod 'FacebookLogin'

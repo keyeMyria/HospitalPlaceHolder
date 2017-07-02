@@ -22,16 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyAnoQYio9VhQAIZrV8BajQRPoEfwalC6qI")
         IQKeyboardManager.sharedManager().enable = true
         
-        window = UIWindow(frame: UIScreen.main.bounds)
+        let sceneCoordinator = SceneCoordinator(window: window!)
         
         if User.currentUser() != nil {
-            let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-            let navVC = UINavigationController(rootViewController: mapVC)
-            changeRootViewControllerWith(vc: navVC)
+            let searchMapViewModel = MapViewModel()
+            let firstScene = Scene.searchMap(searchMapViewModel)
+            
+            sceneCoordinator.transition(to: firstScene, type: .root)
         } else {
-            let loginVC = Utils.storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            let navVC = UINavigationController(rootViewController: loginVC)
-            changeRootViewControllerWith(vc: navVC)
+            let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
+            let firstScene = Scene.login(loginViewModel)
+            
+            sceneCoordinator.transition(to: firstScene, type: .root)
         }
     
         return true

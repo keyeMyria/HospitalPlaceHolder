@@ -19,6 +19,7 @@ class Utils {
         return UIStoryboard(name: "Main", bundle: nil)
     }
     
+    @discardableResult
     class func alertViewIn(vc: UIViewController, title: String?, message: String, cancelButton: String, otherButton: [String]? = nil) -> Observable<Int>{
         
         let buttonClickedSubject = PublishSubject<Int>()

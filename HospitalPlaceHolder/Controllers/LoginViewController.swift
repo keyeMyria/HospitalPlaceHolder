@@ -51,11 +51,11 @@ class LoginViewController: UIViewController, BindableType {
                     let navVC = UINavigationController(rootViewController: mapVC)
                     AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
                 } else {
-                    _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: "wrong_pass_username".localized(), cancelButton: "ok".localized())
+                    Utils.alertViewIn(vc: self!, title: "error".localized(), message: "wrong_pass_username".localized(), cancelButton: "ok".localized())
                 }
             }, onError: {[weak self] error in
                 Utils.hideHUDIn(vc: self!)
-                _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
+                Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
             })
             .addDisposableTo((self?.rx_disposeBag)!)
             
@@ -63,16 +63,6 @@ class LoginViewController: UIViewController, BindableType {
         .addDisposableTo(rx_disposeBag)
         
         signUpButton.setTitle("sign_up".localized(), for: .normal)
-        
-        signUpButton.rx.tap
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] _ in
-            let signUpVC = Utils.storyboard.instantiateViewController(withIdentifier: "SignUpViewController")
-            let navVC = UINavigationController(rootViewController: signUpVC)
-            self?.present(navVC, animated: true, completion: nil)
-        })
-        .addDisposableTo(rx_disposeBag)
-        
         facebookButton.setTitle("login_facebook".localized(), for: .normal)
         
         facebookButton.rx.tap
@@ -84,7 +74,7 @@ class LoginViewController: UIViewController, BindableType {
                     print(userId)
                 }
             }, onError: { error in
-                _ = Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
+                Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
             })
             .addDisposableTo((self?.rx_disposeBag)!)
         })
@@ -92,6 +82,6 @@ class LoginViewController: UIViewController, BindableType {
     }
     
     func bindViewModel() {
-        
+        signUpButton.rx.action = viewModel.onSignUp()
     }
 }

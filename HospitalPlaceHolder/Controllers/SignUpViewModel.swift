@@ -6,8 +6,15 @@
 //  Copyright © 2017 Dinh Thanh An. All rights reserved.
 //
 
-import Foundation
+import RxSwift
+import Action
 
 struct SignUpViewModel {
+    let sceneCoordinator: SceneCoordinatorType
     
+    func onDismiss() -> CocoaAction {
+        return CocoaAction{ _ in
+            return self.sceneCoordinator.pop()
+        }
+    }
 }

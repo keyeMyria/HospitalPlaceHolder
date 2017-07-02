@@ -20,6 +20,8 @@ class SignUpViewController: UIViewController, BindableType  {
     var validUsernameSubject = BehaviorSubject<Bool>(value: false)
     var viewModel: SignUpViewModel!
     
+    var leftBarButton = UIBarButtonItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,14 +32,7 @@ class SignUpViewController: UIViewController, BindableType  {
         codeTxtField.placeholder = "code".localized()
         submitButton.setTitle("submit".localized(), for: .normal)
         
-        let leftBarButton = UIBarButtonItem()
         leftBarButton.title = "back".localized()
-        leftBarButton.rx.tap
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        })
-        .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         usernameTxtField.rx.text
@@ -93,6 +88,6 @@ class SignUpViewController: UIViewController, BindableType  {
     }
     
     func bindViewModel() {
-        
+        leftBarButton.rx.action = viewModel.onDismiss()
     }
 }

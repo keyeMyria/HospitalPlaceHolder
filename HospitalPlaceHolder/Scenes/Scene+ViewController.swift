@@ -27,32 +27,32 @@ extension Scene {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         switch self {
         case .login(let viewModel):
-          let nc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! UINavigationController
-          var vc = nc.viewControllers.first as! LoginViewController
-          vc.bindViewModel(to: viewModel)
-          return nc
+            var vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            let nc = UINavigationController(rootViewController: vc)
+            vc.bindViewModel(to: viewModel)
+            return nc
 
         case .searchMap(let viewModel):
-          let nc = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! UINavigationController
-          var vc = nc.viewControllers.first as! MapViewController
-          vc.bindViewModel(to: viewModel)
-          return nc
+            var vc = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+            let nc = UINavigationController(rootViewController: vc)
+            vc.bindViewModel(to: viewModel)
+            return nc
         
         case .createDisease(let viewModel):
-            let nc = storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! UINavigationController
-            var vc = nc.viewControllers.first as! CreateDiseaseViewController
+            var vc = storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
+            let nc = UINavigationController(rootViewController: vc)
             vc.bindViewModel(to: viewModel)
             return nc
         
         case .menu(let viewModel):
-            let nc = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! UINavigationController
-            var vc = nc.viewControllers.first as! MenuViewController
+            var vc = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            let nc = UINavigationController(rootViewController: vc)
             vc.bindViewModel(to: viewModel)
             return nc
 
         case .signUp(let viewModel):
-            let nc = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! UINavigationController
-            var vc = nc.viewControllers.first as! SignUpViewController
+            var vc = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+            let nc = UINavigationController(rootViewController: vc)
             vc.bindViewModel(to: viewModel)
             return nc
             
