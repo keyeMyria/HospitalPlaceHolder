@@ -94,6 +94,8 @@ class MapViewController: UIViewController, BindableType  {
         if menuVCWidth == 0 {
             menuVCWidth = self.view.frame.size.width - 50
             
+            menuVC.viewModel = MenuViewModel(sceneCoordinator: viewModel.sceneCoordinator)
+            
             self.navigationController?.addChildViewController(menuVC)
             menuVC.view.frame = CGRect(x:  menuVCWidth * -1, y: 0, width: menuVCWidth, height: self.view.frame.size.height)
             self.navigationController?.view.addSubview(menuVC.view)

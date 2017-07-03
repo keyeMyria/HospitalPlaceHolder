@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-import Foundation
+import UIKit
 
 enum SceneTransitionType {
   // you can extend this to add animated transition types,
@@ -29,4 +29,5 @@ enum SceneTransitionType {
   case root       // make view controller the root view controller
   case push       // push view controller to navigation stack
   case modal      // present view controller modally
+  case addTo(UIViewController) // add this view controller to another view controller
 }

@@ -35,23 +35,6 @@ class MenuViewController: UIViewController, BindableType  {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
         profileImageView.sd_setImage(with: URL(string: (currUser?.url)!), placeholderImage: UIImage(named: "ic_account_circle"))
         
-        logoutButon.rx.tap
-        .subscribe(onNext:{ [weak self] _ in
-            Utils.alertViewIn(vc: self!, title: "logout_up".localized(), message: "want_logout".localized(), cancelButton: "cancel".localized(), otherButton: ["ok".localized()])
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { buttonIndex in
-                if buttonIndex == 1 {
-                    currUser?.deleteUser()
-                    let loginVC = Utils.storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                    let navVC = UINavigationController(rootViewController: loginVC)
-                    AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
-                }
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-            
-        })
-        .addDisposableTo(rx_disposeBag)
-        
         languageButton.rx.tap
         .subscribe { [weak self] _ in
             if self != nil {
@@ -68,6 +51,19 @@ class MenuViewController: UIViewController, BindableType  {
             }
         }
         .addDisposableTo(rx_disposeBag)
+        
+        logoutButon.rx.tap
+        .subscribe(onNext:{ [weak self] _ in
+            Utils.alertViewIn(vc: self!, title: "logout_up".localized(), message: "want_logout".localized(), cancelButton: "cancel".localized(), otherButton: ["ok".localized()])
+                .subscribe(onNext: { buttonIndex in
+                    if buttonIndex == 1 {
+                        self?.viewModel.onLogOut().execute()
+                    }
+                })
+                .addDisposableTo((self?.rx_disposeBag)!)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
         
         NotificationCenter.default.rx.notification(Notification.Name(rawValue: Utils.updateAppLanguage))
         .subscribeOn(MainScheduler.instance)

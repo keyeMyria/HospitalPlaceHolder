@@ -69,6 +69,9 @@ class SceneCoordinator: SceneCoordinatorType {
           subject.onCompleted()
         }
         currentViewController = SceneCoordinator.actualViewController(for: viewController)
+        
+        case .addTo(_):
+            break
     }
     return subject.asObservable()
       .take(1)
