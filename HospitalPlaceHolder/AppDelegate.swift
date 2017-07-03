@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sceneCoordinator = SceneCoordinator(window: window!)
         
         if User.currentUser() != nil {
-            let searchMapViewModel = MapViewModel()
+            let searchMapViewModel = MapViewModel(sceneCoordinator: sceneCoordinator)
             let firstScene = Scene.searchMap(searchMapViewModel)
             
             sceneCoordinator.transition(to: firstScene, type: .root)

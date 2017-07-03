@@ -28,50 +28,52 @@ class CreateDiseaseViewController: UIViewController, BindableType {
     @IBOutlet weak var treatmentsLabel: UILabel!
     @IBOutlet weak var outComeLabel: UILabel!
     @IBOutlet weak var labsValueLabel: UILabel!
-    
     @IBOutlet weak var contentView: UIView!
     
     var viewModel: CreateDiseaseViewModel!
-    
-    var disease: DiseaseDetails? = nil
     var chosenLocation = Variable<CLLocationCoordinate2D>(CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    
+    var leftBarButton = UIBarButtonItem()
+    var rightBarButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "new".localized()
-        
         localizedStringForUI()
-        
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.title = "back".localized()
-        leftBarButton.rx.tap
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        })
-        .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        if disease == nil {
+        contentView.rx.tapGesture().subscribe { [weak self] _ in
+            if (self?.diseaseNameTxtField.isFirstResponder)! {
+                self?.diseaseNameTxtField.resignFirstResponder()
+            } else if (self?.symptomsTxtView.isFirstResponder)! {
+                self?.symptomsTxtView.resignFirstResponder()
+            } else if (self?.labsValueTxtView.isFirstResponder)! {
+                self?.labsValueTxtView.resignFirstResponder()
+            } else if (self?.treatmentsTxtView.isFirstResponder)! {
+                self?.treatmentsTxtView.resignFirstResponder()
+            } else if (self?.outcomeTxtView.isFirstResponder)! {
+                self?.outcomeTxtView.resignFirstResponder()
+            }
+        }
+        .addDisposableTo(rx_disposeBag)
+        
+    }
+    
+    func bindViewModel() {
+        leftBarButton.rx.action = viewModel.onDismiss()
+        
+        if self.viewModel.disease == nil {
             let observerValidInput = Observable.combineLatest(diseaseNameTxtField.rx.text, symptomsTxtView.rx.text, locationTxtField.rx.text) { name, desc, address -> Bool in
                 return (name?.characters.count)! > 0 && (desc?.characters.count)! > 0 && (address?.characters.count)! > 0
             }
             
-            let rightBarButton = UIBarButtonItem()
             rightBarButton.title = "done".localized()
             rightBarButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    
-                    APIManager.instance.createDisease(name: (self?.diseaseNameTxtField.text)!, lat: (self?.chosenLocation.value.latitude)!, long: (self?.chosenLocation.value.longitude)!, symptoms: (self?.symptomsTxtView.text)!, address: self?.locationTxtField.text, labsValue: self?.labsValueTxtView.text, treatments: self?.treatmentsTxtView.text, outcome: self?.outcomeTxtView.text)
-                        .subscribe(onError: { error in
-                            print(error)
-                        }, onCompleted: {
-                            self?.dismiss(animated: true, completion: nil)
-                        })
-                        .addDisposableTo((self?.rx_disposeBag)!)
-                })
-                .addDisposableTo(rx_disposeBag)
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.onCreateDisease().execute(((self?.diseaseNameTxtField.text)!, (self?.chosenLocation.value.latitude)!, (self?.chosenLocation.value.longitude)!, (self?.symptomsTxtView.text)!, self?.locationTxtField.text, self?.labsValueTxtView.text, self?.treatmentsTxtView.text, self?.outcomeTxtView.text))
+                
+            })
+            .addDisposableTo(rx_disposeBag)
             self.navigationItem.rightBarButtonItem = rightBarButton
             
             observerValidInput
@@ -120,35 +122,17 @@ class CreateDiseaseViewController: UIViewController, BindableType {
                 .bind(to: diseaseNameTxtField.rx.isUserInteractionEnabled)
                 .addDisposableTo(rx_disposeBag)
         } else {
-            diseaseNameTxtField.text = disease?.name
-            locationTxtField.text = disease?.address
-            symptomsTxtView.text = disease?.symptoms
-            labsValueTxtView.text = disease?.labsValue
-            treatmentsTxtView.text = disease?.treatments
+            diseaseNameTxtField.text = self.viewModel.disease?.name
+            locationTxtField.text = self.viewModel.disease?.address
+            symptomsTxtView.text = self.viewModel.disease?.symptoms
+            labsValueTxtView.text = self.viewModel.disease?.labsValue
+            treatmentsTxtView.text = self.viewModel.disease?.treatments
         }
-        
-        contentView.rx.tapGesture().subscribe { [weak self] _ in
-            if (self?.diseaseNameTxtField.isFirstResponder)! {
-                self?.diseaseNameTxtField.resignFirstResponder()
-            } else if (self?.symptomsTxtView.isFirstResponder)! {
-                self?.symptomsTxtView.resignFirstResponder()
-            } else if (self?.labsValueTxtView.isFirstResponder)! {
-                self?.labsValueTxtView.resignFirstResponder()
-            } else if (self?.treatmentsTxtView.isFirstResponder)! {
-                self?.treatmentsTxtView.resignFirstResponder()
-            } else if (self?.outcomeTxtView.isFirstResponder)! {
-                self?.outcomeTxtView.resignFirstResponder()
-            }
-        }
-        .addDisposableTo(rx_disposeBag)
-        
-    }
-    
-    func bindViewModel() {
-        
     }
     
     func localizedStringForUI() {
+        self.title = "new".localized()
+        leftBarButton.title = "back".localized()
         diseaseNameLabel.text = "disease_name".localized() + ":"
         unknownNameLabel.text = "unknown_name".localized() + ":"
         locationLabel.text = "location".localized() + ":"

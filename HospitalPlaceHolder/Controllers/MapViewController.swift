@@ -32,11 +32,6 @@ class MapViewController: UIViewController, BindableType  {
         setTextForUI()
         
         if User.currentUser()?.userType == 1 {
-            rightBarButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    self?.showDiseaseDetailScreenWith()
-                })
-                .addDisposableTo(rx_disposeBag)
             self.navigationItem.rightBarButtonItem = rightBarButton
             
             isMenuOpenVariable.asObservable()
@@ -74,14 +69,6 @@ class MapViewController: UIViewController, BindableType  {
         })
         .addDisposableTo(rx_disposeBag)
         
-        mapView.rx.didSelectAnnotation
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] annotationView in
-            let annotation = annotationView.annotation as! DiseasePointAnnotation
-            self?.showDiseaseDetailScreenWith(disease: annotation.disease)
-        })
-        .addDisposableTo(rx_disposeBag)
-        
         mapView.rx.tapGesture().subscribe { [weak self] gesture in
             if (self?.searchBar.isFirstResponder)! {
                 self?.searchBar.resignFirstResponder()
@@ -115,7 +102,19 @@ class MapViewController: UIViewController, BindableType  {
     }
     
     func bindViewModel() {
+        mapView.rx.didSelectAnnotation
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] annotationView in
+                let annotation = annotationView.annotation as! DiseasePointAnnotation
+                self?.viewModel.onShowDiseaseDetail().execute(annotation.disease)
+            })
+            .addDisposableTo(rx_disposeBag)
         
+        rightBarButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.onShowDiseaseDetail().execute(nil)
+            })
+            .addDisposableTo(rx_disposeBag)
     }
     
     func setTextForUI() {
@@ -132,12 +131,5 @@ class MapViewController: UIViewController, BindableType  {
                 self.menuVC.view.frame.origin = CGPoint(x: self.menuVCWidth * -1, y: self.menuVC.view.frame.origin.y)
             }
         })
-    }
-    
-    func showDiseaseDetailScreenWith(disease: DiseaseDetails? = nil) {
-        let createDiseaseVC = Utils.storyboard.instantiateViewController(withIdentifier: "CreateDiseaseViewController") as! CreateDiseaseViewController
-        createDiseaseVC.disease = disease
-        let navVC = UINavigationController(rootViewController: createDiseaseVC)
-        self.present(navVC, animated: true, completion: nil)
     }
 }
