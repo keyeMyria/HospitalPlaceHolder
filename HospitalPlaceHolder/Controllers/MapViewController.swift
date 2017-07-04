@@ -49,26 +49,6 @@ class MapViewController: UIViewController, BindableType  {
         .addDisposableTo(rx_disposeBag)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        searchBar.rx.text
-        .throttle(0.5, scheduler: MainScheduler.instance)
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] name  in
-            if name?.characters.count == 0 {
-                self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-            } else {
-                APIManager.instance.getDiseaseBy(name: name!.lowercased())
-                    .subscribe(onNext: { diseases in
-                        self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                        diseases.forEach{ [weak self] in
-                            let annotation = DiseasePointAnnotation(disease: $0)
-                            self?.mapView.addAnnotation(annotation)
-                        }
-                    })
-                    .addDisposableTo((self?.rx_disposeBag)!)
-            }            
-        })
-        .addDisposableTo(rx_disposeBag)
-        
         mapView.rx.tapGesture().subscribe { [weak self] gesture in
             if (self?.searchBar.isFirstResponder)! {
                 self?.searchBar.resignFirstResponder()
@@ -117,6 +97,23 @@ class MapViewController: UIViewController, BindableType  {
                 self?.viewModel.onShowDiseaseDetail().execute(nil)
             })
             .addDisposableTo(rx_disposeBag)
+        
+        let textSequence = searchBar.rx.text
+        .throttle(0.5, scheduler: MainScheduler.instance)
+        .filter{ [weak self] string in
+            self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+            return (string?.characters.count)! > 0
+        }
+        
+        viewModel.onSearchDisease(textSequence: textSequence)
+        .subscribe(onNext: { [weak self] diseases in
+            self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+            diseases.forEach{ [weak self] in
+                let annotation = DiseasePointAnnotation(disease: $0)
+                self?.mapView.addAnnotation(annotation)
+            }
+        })
+        .addDisposableTo(rx_disposeBag)
     }
     
     func setTextForUI() {

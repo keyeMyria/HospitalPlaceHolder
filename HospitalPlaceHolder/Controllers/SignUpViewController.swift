@@ -35,7 +35,37 @@ class SignUpViewController: UIViewController, BindableType  {
         leftBarButton.title = "back".localized()
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        usernameTxtField.rx.text
+        Observable.combineLatest(validUsernameSubject, passwordTxtField.rx.text, confirmPasswordTxtField.rx.text) {
+            $0 && ($1?.characters.count)! > 0 && $1 == $2
+        }
+        .bind(to: submitButton.rx.isEnabled)
+        .addDisposableTo(rx_disposeBag)
+        
+    }
+    
+    func bindViewModel() {
+        leftBarButton.rx.action = viewModel.onDismiss()
+        
+        submitButton.rx.tap
+        .subscribe(onNext: {[weak self] _ in
+            self?.viewModel.onSignUp().execute(((self?.usernameTxtField.text)!, (self?.passwordTxtField.text)!, (self?.codeTxtField.text)!))
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        viewModel.apiErrorSubject
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: {[weak self] apiError in
+            switch apiError{
+            case .otherError(let error):
+                Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
+            case .wrongUsernamePassword:
+                break
+                
+            }
+        })
+        .addDisposableTo(rx_disposeBag)
+        
+        let usernameSequence = usernameTxtField.rx.text
         .skip(1)
         .filter{ [weak self] text in
             if (text?.characters.count)! <= 2 {
@@ -44,50 +74,18 @@ class SignUpViewController: UIViewController, BindableType  {
             }
             return (text?.characters.count)! > 2
         }
-        .subscribe(onNext: { [weak self] text in
-            APIManager.instance.isExistingUserWith(username: text)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] existing in
-                if existing {
-                    self?.validUsernameSubject.onNext(false)
-                    self?.usernameTxtField.backgroundColor = UIColor.red
-                } else {
-                    self?.validUsernameSubject.onNext(true)
-                    self?.usernameTxtField.backgroundColor = UIColor.white
-                }
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
+        
+        viewModel.onCheckExistingUsername(textSequence: usernameSequence)
+        .subscribeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] existing in
+            if existing {
+                self?.validUsernameSubject.onNext(false)
+                self?.usernameTxtField.backgroundColor = UIColor.red
+            } else {
+                self?.validUsernameSubject.onNext(true)
+                self?.usernameTxtField.backgroundColor = UIColor.white
+            }
         })
         .addDisposableTo(rx_disposeBag)
-        
-        Observable.combineLatest(validUsernameSubject, passwordTxtField.rx.text, confirmPasswordTxtField.rx.text) {
-            $0 && ($1?.characters.count)! > 0 && $1 == $2
-        }
-        .bind(to: submitButton.rx.isEnabled)
-        .addDisposableTo(rx_disposeBag)
-        
-        submitButton.rx.tap
-        .subscribe(onNext: { [weak self] _ in
-            let userType = (self?.codeTxtField.text)! == "12345" ? 1 : 2
-            APIManager.instance.registerUser(username: (self?.usernameTxtField.text)!, password: (self?.passwordTxtField.text)!, userType: userType)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { user in
-                let user = User(with: user)
-                user.saveCurrentUser()
-                
-                let mapVC = Utils.storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-                let navVC = UINavigationController(rootViewController: mapVC)
-                AppDelegate.instance.changeRootViewControllerWith(vc: navVC)
-                
-            }, onError: { error in
-                print(error)
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-        })
-        .addDisposableTo(rx_disposeBag)
-    }
-    
-    func bindViewModel() {
-        leftBarButton.rx.action = viewModel.onDismiss()
     }
 }
