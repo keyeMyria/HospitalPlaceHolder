@@ -290,6 +290,58 @@ public final class RegisterUserMutation: GraphQLMutation {
   }
 }
 
+public final class RegisterUserByFacebookMutation: GraphQLMutation {
+  public static let operationDefinition =
+    "mutation RegisterUserByFacebook($username: String!, $name: String!, $facebookId: String!, $url: String) {" +
+    "  createUser(username: $username, name: $name, password: \"00000000\", facebookId: $facebookId, userType: 2, url: $url) {" +
+    "    __typename" +
+    "    ...UserDetails" +
+    "  }" +
+    "}"
+  public static let queryDocument = operationDefinition.appending(UserDetails.fragmentDefinition)
+
+  public let username: String
+  public let name: String
+  public let facebookId: String
+  public let url: String?
+
+  public init(username: String, name: String, facebookId: String, url: String? = nil) {
+    self.username = username
+    self.name = name
+    self.facebookId = facebookId
+    self.url = url
+  }
+
+  public var variables: GraphQLMap? {
+    return ["username": username, "name": name, "facebookId": facebookId, "url": url]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let createUser: CreateUser?
+
+    public init(reader: GraphQLResultReader) throws {
+      createUser = try reader.optionalValue(for: Field(responseName: "createUser", arguments: ["username": reader.variables["username"], "name": reader.variables["name"], "password": "00000000", "facebookId": reader.variables["facebookId"], "userType": 2, "url": reader.variables["url"]]))
+    }
+
+    public struct CreateUser: GraphQLMappable {
+      public let __typename: String
+
+      public let fragments: Fragments
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+
+        let userDetails = try UserDetails(reader: reader)
+        fragments = Fragments(userDetails: userDetails)
+      }
+
+      public struct Fragments {
+        public let userDetails: UserDetails
+      }
+    }
+  }
+}
+
 public struct UserDetails: GraphQLNamedFragment {
   public static let fragmentDefinition =
     "fragment UserDetails on User {" +

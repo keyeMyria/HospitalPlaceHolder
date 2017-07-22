@@ -35,21 +35,6 @@ class LoginViewController: UIViewController, BindableType {
         }
         .bind(to: loginButton.rx.isEnabled)
         .addDisposableTo(rx_disposeBag)
-                
-        facebookButton.rx.tap
-        .subscribeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] _ in
-            FacebookManager.instance.loginByFacebookIn(vc: self!)
-            .subscribe(onNext: { userId in
-                if let userId = userId {
-                    print(userId)
-                }
-            }, onError: { error in
-                Utils.alertViewIn(vc: self!, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
-            })
-            .addDisposableTo((self?.rx_disposeBag)!)
-        })
-        .addDisposableTo(rx_disposeBag)
     }
     
     func bindViewModel() {
@@ -65,12 +50,26 @@ class LoginViewController: UIViewController, BindableType {
         })
         .addDisposableTo(rx_disposeBag)
         
+        facebookButton.rx.tap
+        .subscribe(onNext: { [unowned self] _ in
+            FacebookManager.instance.loginByFacebookIn(vc: self)
+                .subscribe(onNext: {[unowned self] facebookId in
+                    if let facebookId = facebookId {
+                        self.viewModel.onLoginByFacebook(facebookId: facebookId)
+                    }
+                }, onError: { error in
+                    Utils.alertViewIn(vc: self, title: "error".localized(), message: error.localizedDescription, cancelButton: "ok".localized())
+                })
+                .addDisposableTo(self.rx_disposeBag)
+        })
+        .addDisposableTo(rx_disposeBag)
+        
         loginButton.rx.tap
-        .map{[weak self] _ in
-            return ((self?.phoneTextField.text)!, (self?.passwordTextField.text)!)
+        .map{[unowned self] _ in
+            return ((self.phoneTextField.text)!, (self.passwordTextField.text)!)
         }
-        .subscribe(onNext: {[weak self] input in
-            self?.viewModel.onLogin().execute(input)
+        .subscribe(onNext: {[unowned self] input in
+            self.viewModel.onLogin().execute(input)
         })
         .addDisposableTo(rx_disposeBag)
         
