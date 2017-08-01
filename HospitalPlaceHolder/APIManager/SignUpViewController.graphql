@@ -9,3 +9,9 @@ mutation RegisterUser($username: String!, $password: String!, $userType: Int!){
         ...UserDetails
     }
 }
+
+mutation RegisterUserByFacebook($username:String! $name: String!, $facebookId: String!, $url: String){
+    createUser(username: $username, name: $name, password: "00000000", facebookId: $facebookId, userType: 2, url: $url){
+        ...UserDetails
+    }
+}

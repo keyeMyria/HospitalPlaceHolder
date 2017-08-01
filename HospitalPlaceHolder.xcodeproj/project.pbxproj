@@ -54,6 +54,7 @@
 		D13439B21EFFF8830019DF81 /* MapViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewExtension.swift; sourceTree = "<group>"; };
 		D13439B71F000B240019DF81 /* DiseasePointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiseasePointAnnotation.swift; sourceTree = "<group>"; };
 		D135E83F1EFF677E00370517 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		D1583D5A1F230AFC005F9A95 /* HospitalPlaceHolder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HospitalPlaceHolder.entitlements; sourceTree = "<group>"; };
 		D17C3C971EED95EE0001011C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D17C3C991EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D17C3C9B1EED95EE0001011C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		D19D70F31EECED6800A1ED59 /* HospitalPlaceHolder */ = {
 			isa = PBXGroup;
 			children = (
+				D1583D5A1F230AFC005F9A95 /* HospitalPlaceHolder.entitlements */,
 				D1BDACF41EF03B700054F2A6 /* schema.json */,
 				D19D70F41EECED6800A1ED59 /* AppDelegate.swift */,
 				D1E3F4C21F065EFA00E40554 /* Scenes */,
@@ -280,8 +282,13 @@
 				TargetAttributes = {
 					D19D70F01EECED6800A1ED59 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 8G529LE4VG;
+						DevelopmentTeam = 268S9PSKG5;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -552,13 +559,15 @@
 			baseConfigurationReference = A8D3BD0A3C61B01DD20F5E26 /* Pods-HospitalPlaceHolder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8G529LE4VG;
+				CODE_SIGN_ENTITLEMENTS = HospitalPlaceHolder/HospitalPlaceHolder.entitlements;
+				DEVELOPMENT_TEAM = 268S9PSKG5;
 				INFOPLIST_FILE = HospitalPlaceHolder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.absoluteaudiolabs.pyouraudiopro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haunguyen.vietmed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "891c7197-8694-4c80-88e5-b4cffc3a9c1e";
-				PROVISIONING_PROFILE_SPECIFIER = AAL_PRO_development;
+				PROVISIONING_PROFILE = "9ea0e222-dc73-43f7-8dcb-2c5f22901fc7";
+				PROVISIONING_PROFILE_SPECIFIER = "VietMed Development Provisioning";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -569,12 +578,16 @@
 			baseConfigurationReference = 42E9C77C57D098D39AB1266C /* Pods-HospitalPlaceHolder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = HospitalPlaceHolder/HospitalPlaceHolder.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 268S9PSKG5;
 				INFOPLIST_FILE = HospitalPlaceHolder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.absoluteaudiolabs.pyouraudiopro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haunguyen.vietmed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9962ec5b-c759-424f-a188-809cedc4ff5d";
+				PROVISIONING_PROFILE_SPECIFIER = "VietMed AppStore Provisioning";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

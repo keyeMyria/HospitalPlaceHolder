@@ -81,7 +81,7 @@ class APIManager {
         }
     }
     
-    func loginUserByFacebook(facebookId: String) -> Observable<Bool> {
+    func loginUserByFacebook(facebookId: String) -> Observable<UserDetails?> {
         return Observable.create{ observer in
             let loginUser = LoginUserByFacebookIdQuery(facebookId: facebookId)
             apollo.fetch(query: loginUser) { result, error in
@@ -90,9 +90,11 @@ class APIManager {
                     observer.onError(error)
                 } else {
                     if (result?.data?.allUsers.count)! > 0 {
-                        observer.onNext(true)
+                        observer.onNext(result?.data?.allUsers[0].fragments.userDetails)
+                        observer.onCompleted()
                     } else {
-                        observer.onNext(false)
+                        observer.onNext(nil)
+                        observer.onCompleted()
                     }
                     observer.onCompleted()
                 }
@@ -153,7 +155,23 @@ class APIManager {
                 
                 observer.onCompleted()
             }
-            
+            return Disposables.create()
+        }
+    }
+    
+    func registerUserByFacebook(username: String, name: String, facebookId: String, url: String?) -> Observable<UserDetails>  {
+        return Observable.create{ observer in
+            let createUser = RegisterUserByFacebookMutation(username: username, name: name, facebookId: facebookId, url: url)
+            apollo.perform(mutation: createUser, resultHandler: { result, error in
+                if let error = error {
+                    observer.onError(error)
+                } else {
+                    if let user = result?.data?.createUser?.fragments.userDetails {
+                        observer.onNext(user)
+                    }
+                    observer.onCompleted()
+                }
+            })
             return Disposables.create()
         }
     }

@@ -16,8 +16,6 @@ enum ApiFailed {
 
 struct LoginViewModel {
     let sceneCoordinator: SceneCoordinatorType
-//    let usernameVariable: Variable<String>
-//    let passwordVariable: Variable<String>
     let disposeBag = DisposeBag()
     let loadingVariable = Variable<Bool>(false)
     let loginErrorSubject = PublishSubject<ApiFailed>()
@@ -39,8 +37,7 @@ struct LoginViewModel {
                         let currUser = User(with: user)
                         currUser.saveCurrentUser()
                         
-                        let mapViewModel = MapViewModel(sceneCoordinator: self.sceneCoordinator)
-                        self.sceneCoordinator.transition(to: Scene.searchMap(mapViewModel), type: .root)
+                        self.showMainScreen()
                     } else {
                         self.loginErrorSubject.onNext(.wrongUsernamePassword)
                     }
@@ -52,5 +49,54 @@ struct LoginViewModel {
             
             return Observable.just()
         }
+    }
+    
+    func onLoginByFacebook(facebookId: String) {
+        loadingVariable.value = true
+        APIManager.instance.loginUserByFacebook(facebookId: facebookId)
+            .subscribe(onNext: {user in
+                if let user = user {
+                    self.loadingVariable.value = false
+                    
+                    let currUser = User(with: user)
+                    currUser.saveCurrentUser()
+                    
+                    self.showMainScreen()
+                } else {
+                    self.getCurrentFBUserInfoAndRegister()
+                }
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    func getCurrentFBUserInfoAndRegister() {
+        FacebookManager.instance.getCurrentFBUserInfo()
+            .subscribe(onNext: { info in
+                if let info = info {
+                    let name = info["name"] as! String
+                    let facebookId = info["facebookId"] as! String
+                    let url = info["url"] as? String
+                    self.registerUserWithFacebook(username: "fbuser-" + name, name: name, facebookId: facebookId, url: url)
+                }
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    func registerUserWithFacebook(username: String, name: String, facebookId: String, url: String?) {
+        APIManager.instance.registerUserByFacebook(username: username, name: name, facebookId: facebookId, url: url)
+            .subscribe(onNext: { user in
+                self.loadingVariable.value = false
+                
+                let currUser = User(with: user)
+                currUser.saveCurrentUser()
+                
+                self.showMainScreen()
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    func showMainScreen() {
+        let mapViewModel = MapViewModel(sceneCoordinator: self.sceneCoordinator)
+        self.sceneCoordinator.transition(to: Scene.searchMap(mapViewModel), type: .root)
     }
 }
