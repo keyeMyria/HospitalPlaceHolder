@@ -111,10 +111,17 @@ class CreateDiseaseViewController: UIViewController, BindableType {
             
             let textSequence = locationTxtField.rx.text
                 .throttle(0.5, scheduler: MainScheduler.instance)
-                .filter{ ($0?.characters.count)! > 0 }
             
             viewModel.onGetLocationFromAddress(textSequence: textSequence)
+            .do(onNext: { [unowned self] location in
+                if location != nil {
+                    self.locationTxtField.backgroundColor = UIColor.white
+                } else {
+                    self.locationTxtField.backgroundColor = UIColor.red
+                }
+            })
             .subscribe(onNext: { [unowned self] location in
+                print("location: \(String(describing: location))")
                 if let location = location {
                     self.chosenLocation.value = location
                 } else {

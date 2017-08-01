@@ -38,7 +38,7 @@ struct CreateDiseaseViewModel {
     
     func onGetLocationFromAddress(textSequence: Observable<String?>) -> Observable<CLLocationCoordinate2D?> {
         return textSequence.flatMapLatest({ textString in
-            return APIManager.instance.getLocationFromAddress(address: textString!)
+            return APIManager.instance.getLocationFromAddress(address: textString)
         })
         
     }

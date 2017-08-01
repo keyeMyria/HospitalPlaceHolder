@@ -142,19 +142,25 @@ class APIManager {
         }
     }
     
-    func getLocationFromAddress(address: String) -> Observable<CLLocationCoordinate2D?> {
+    func getLocationFromAddress(address: String?) -> Observable<CLLocationCoordinate2D?> {
         return Observable.create{ observer in
             
-            let geoCoder = CLGeocoder()
-            geoCoder.geocodeAddressString(address) { (placemarks, error) in
-                if let placemarks = placemarks, let location = placemarks.first?.location{
-                    observer.onNext(location.coordinate)
-                } else {
-                    observer.onNext(nil)
+            if let address = address {
+                let geoCoder = CLGeocoder()
+                geoCoder.geocodeAddressString(address) { (placemarks, error) in
+                    if let placemarks = placemarks, let location = placemarks.first?.location{
+                        observer.onNext(location.coordinate)
+                    } else {
+                        observer.onNext(nil)
+                    }
+                    
+                    observer.onCompleted()
                 }
-                
+            } else {
+                observer.onNext(nil)
                 observer.onCompleted()
             }
+            
             return Disposables.create()
         }
     }
