@@ -8,6 +8,7 @@
 
 import RxSwift
 import Action
+import CoreLocation
 
 struct CreateDiseaseViewModel {
     let sceneCoordinator: SceneCoordinatorType
@@ -33,5 +34,12 @@ struct CreateDiseaseViewModel {
             
             return Observable.just()
         }
+    }
+    
+    func onGetLocationFromAddress(textSequence: Observable<String?>) -> Observable<CLLocationCoordinate2D?> {
+        return textSequence.flatMapLatest({ textString in
+            return APIManager.instance.getLocationFromAddress(address: textString!)
+        })
+        
     }
 }

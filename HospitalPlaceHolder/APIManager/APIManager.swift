@@ -10,6 +10,7 @@ import Foundation
 import Apollo
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 let graphQLEndpoint = "https://api.graph.cool/simple/v1/cj3bpd484nnm20185dmf2tqm6"
 let apollo = ApolloClient(url: URL(string: graphQLEndpoint)!)
@@ -134,6 +135,24 @@ class APIManager {
                     observer.onCompleted()
                 }
             })
+            
+            return Disposables.create()
+        }
+    }
+    
+    func getLocationFromAddress(address: String) -> Observable<CLLocationCoordinate2D?> {
+        return Observable.create{ observer in
+            
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(address) { (placemarks, error) in
+                if let placemarks = placemarks, let location = placemarks.first?.location{
+                    observer.onNext(location.coordinate)
+                } else {
+                    observer.onNext(nil)
+                }
+                
+                observer.onCompleted()
+            }
             
             return Disposables.create()
         }
